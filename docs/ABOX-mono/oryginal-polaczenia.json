@@ -1,0 +1,584 @@
+{
+  "source": "Radioelektronik, artykuł Urszuli Klapczyńskiej: Wzmacniacz 40 W o małych zniekształceniach; oryginalny rys. 2, strona drukowana 9 (PDF str. 2), jedna para końcowa, zasilanie ±30 V. Wykaz części: strona drukowana 10 (PDF str. 3). Plik: Wzmacniacz 40W niskie TIM.pdf.",
+  "notes": [
+    "Odtworzono oryginalne połączenia z obrazu źródłowego, bez modernizacji ±50 V i bez stabilizatorów. VP/VM są szynami filtrowanymi przez R15/R16, V+/V- głównymi szynami ±30 V.",
+    "R12 łączy GND z IB2. R13 łączy VB8 z GND. Węzeł wspólny R13/R12 jest masą: na oryginale wyraźna kropka przy poziomej szynie masy.",
+    "Wartość R13 jest niepewna: skan wizualnie wygląda jak 82k, lecz przy R14=820 Ω taki dzielnik nie daje poprawnej polaryzacji kaskody PNP. 8,2 kΩ jest elektrycznie wiarygodne; do wyjaśnienia z drugim źródłem lub egzemplarzem. Nie zatwierdzono tej wartości.",
+    "T6 jest PNP według symbolu i funkcji lustra. Wydruk BC147 został odręcznie poprawiony na BC157.",
+    "Numer kondensatora sprzężenia zwrotnego wydrukowano ponownie jako C4; odręczna poprawka C5 odpowiada wykazowi C2…C5 oraz istniejącemu C4 filtrującemu ujemne zasilanie.",
+    "R28 i R29 są rezystorami kolektorowymi tranzystorów końcowych, nie emiterowymi. UP i LOW są oddzielnymi węzłami przed tymi rezystorami; OUTI jest ich wspólnym wyjściem.",
+    "Środek R18/R17, BM, jest pływający: nie łączy się z OUTI ani GND.",
+    "Rc ma suwak zwarty z dolnym końcem VL i bocznikuje D5+D4. Rd ma suwak połączony z VP.",
+    "D4…D7 w tekście mają być umieszczone na radiatorze z tranzystorami sterującymi i mocy. Dokumentacji BAP811 ani liczby złączy nie potwierdzono; nie przyjęto automatycznego zamiennika 1N4148.",
+    "Przy D6/D7 wspólny napis BAP811, obok odręczne 2x; D4/D5 bez osobnego typu na rysunku. Wykaz części wymienia tylko D1/D2/D3 jako BAYP95 lub BAP794.",
+    "Wykaz i schemat różnią się oznaczeniem R25/R26 (2,5 Ω wobec 2,49 Ω) oraz mocą R27 (2 W wobec 5 W); zachowano obie informacje.",
+    "Piny 1/2 elementów biernych oznaczają wyłącznie końce połączenia zgodnie z konwencją tego pliku; nie są deklaracją wyprowadzeń obudowy ani polaryzacji elektrolitu. B/C/E oraz A/K są pinami funkcjonalnymi.",
+    "Nie dodano zabezpieczenia z oddzielnego rys. 3: podstawowy schemat rys. 2 zawiera T1…T18. Nie jest to projekt PCB ani dokumentacja do uruchomienia."
+  ],
+  "components": {
+    "T1": {
+      "kind": "Q",
+      "value": "BC414",
+      "pins": {
+        "B": "INB",
+        "C": "N1",
+        "E": "E1"
+      }
+    },
+    "T2": {
+      "kind": "Q",
+      "value": "BC414",
+      "pins": {
+        "B": "FB",
+        "C": "N2",
+        "E": "E2"
+      }
+    },
+    "T3": {
+      "kind": "Q",
+      "value": "BC147",
+      "pins": {
+        "B": "IB1",
+        "C": "TAIL",
+        "E": "ET3"
+      }
+    },
+    "T4": {
+      "kind": "Q",
+      "value": "BC157",
+      "pins": {
+        "B": "N2",
+        "C": "N1",
+        "E": "MIR"
+      }
+    },
+    "T5": {
+      "kind": "Q",
+      "value": "BC157",
+      "pins": {
+        "B": "MIR",
+        "C": "MIR",
+        "E": "EM5"
+      }
+    },
+    "T6": {
+      "kind": "Q",
+      "value": "BC157; na wydruku BC147, odręcznie poprawione na BC157",
+      "pins": {
+        "B": "MIR",
+        "C": "N2",
+        "E": "EM6"
+      }
+    },
+    "T7": {
+      "kind": "Q",
+      "value": "BC556",
+      "pins": {
+        "B": "N1",
+        "C": "CAS",
+        "E": "EP7"
+      }
+    },
+    "T8": {
+      "kind": "Q",
+      "value": "BC556",
+      "pins": {
+        "B": "VB8",
+        "C": "VH",
+        "E": "CAS"
+      }
+    },
+    "T9": {
+      "kind": "Q",
+      "value": "BC546",
+      "pins": {
+        "B": "IB2",
+        "C": "VL",
+        "E": "ET9"
+      }
+    },
+    "T10": {
+      "kind": "Q",
+      "value": "BC147",
+      "pins": {
+        "B": "ET9",
+        "C": "IB2",
+        "E": "VM"
+      }
+    },
+    "T11": {
+      "kind": "Q",
+      "value": "BC546",
+      "pins": {
+        "B": "VH",
+        "C": "V+",
+        "E": "BN"
+      }
+    },
+    "T12": {
+      "kind": "Q",
+      "value": "BC546",
+      "pins": {
+        "B": "BN",
+        "C": "BDP",
+        "E": "EU"
+      }
+    },
+    "T13": {
+      "kind": "Q",
+      "value": "BD140",
+      "pins": {
+        "B": "BDP",
+        "C": "UP",
+        "E": "BU"
+      }
+    },
+    "T14": {
+      "kind": "Q",
+      "value": "2N6491 lub TIP2955",
+      "pins": {
+        "B": "BU",
+        "C": "UP",
+        "E": "V+"
+      }
+    },
+    "T15": {
+      "kind": "Q",
+      "value": "BC556",
+      "pins": {
+        "B": "VL",
+        "C": "V-",
+        "E": "BP"
+      }
+    },
+    "T16": {
+      "kind": "Q",
+      "value": "BC556",
+      "pins": {
+        "B": "BP",
+        "C": "BDN",
+        "E": "EL"
+      }
+    },
+    "T17": {
+      "kind": "Q",
+      "value": "BD139",
+      "pins": {
+        "B": "BDN",
+        "C": "LOW",
+        "E": "BL"
+      }
+    },
+    "T18": {
+      "kind": "Q",
+      "value": "TIP3055 lub 2N6488",
+      "pins": {
+        "B": "BL",
+        "C": "LOW",
+        "E": "V-"
+      }
+    },
+    "R1": {
+      "kind": "R",
+      "value": "150 Ω",
+      "pins": {
+        "1": "IN",
+        "2": "INF"
+      }
+    },
+    "R2": {
+      "kind": "R",
+      "value": "47 kΩ",
+      "pins": {
+        "1": "INB",
+        "2": "GND"
+      }
+    },
+    "R3": {
+      "kind": "R",
+      "value": "120 Ω",
+      "pins": {
+        "1": "E1",
+        "2": "TAIL"
+      }
+    },
+    "R4": {
+      "kind": "R",
+      "value": "120 Ω",
+      "pins": {
+        "1": "E2",
+        "2": "TAIL"
+      }
+    },
+    "R5": {
+      "kind": "R",
+      "value": "22 Ω",
+      "pins": {
+        "1": "EM6",
+        "2": "RD6"
+      }
+    },
+    "R6": {
+      "kind": "R",
+      "value": "22 Ω",
+      "pins": {
+        "1": "EM5",
+        "2": "RD5"
+      }
+    },
+    "R7": {
+      "kind": "R",
+      "value": "15 kΩ",
+      "pins": {
+        "1": "GND",
+        "2": "IB1"
+      }
+    },
+    "R8": {
+      "kind": "R",
+      "value": "330 Ω",
+      "pins": {
+        "1": "ET3",
+        "2": "VM"
+      }
+    },
+    "R9": {
+      "kind": "R",
+      "value": "2 kΩ",
+      "pins": {
+        "1": "FB",
+        "2": "CFB"
+      }
+    },
+    "R10": {
+      "kind": "R",
+      "value": "47 kΩ",
+      "pins": {
+        "1": "FB",
+        "2": "OUTI"
+      }
+    },
+    "R11": {
+      "kind": "R",
+      "value": "220 Ω",
+      "pins": {
+        "1": "ET9",
+        "2": "VM"
+      }
+    },
+    "R12": {
+      "kind": "R",
+      "value": "15 kΩ",
+      "pins": {
+        "1": "GND",
+        "2": "IB2"
+      }
+    },
+    "R13": {
+      "kind": "R",
+      "value": "NIEJEDNOZNACZNE: nadruk wygląda jak 82 kΩ; prawdopodobne 8,2 kΩ, wymaga potwierdzenia",
+      "pins": {
+        "1": "VB8",
+        "2": "GND"
+      }
+    },
+    "R14": {
+      "kind": "R",
+      "value": "820 Ω",
+      "pins": {
+        "1": "VP",
+        "2": "VB8"
+      }
+    },
+    "R15": {
+      "kind": "R",
+      "value": "47 Ω",
+      "pins": {
+        "1": "V+",
+        "2": "VP"
+      }
+    },
+    "R16": {
+      "kind": "R",
+      "value": "47 Ω",
+      "pins": {
+        "1": "V-",
+        "2": "VM"
+      }
+    },
+    "R17": {
+      "kind": "R",
+      "value": "220 Ω",
+      "pins": {
+        "1": "BM",
+        "2": "BP"
+      }
+    },
+    "R18": {
+      "kind": "R",
+      "value": "220 Ω",
+      "pins": {
+        "1": "BN",
+        "2": "BM"
+      }
+    },
+    "R19": {
+      "kind": "R",
+      "value": "1,2 kΩ",
+      "pins": {
+        "1": "V+",
+        "2": "BDP"
+      }
+    },
+    "R20": {
+      "kind": "R",
+      "value": "100 Ω",
+      "pins": {
+        "1": "EU",
+        "2": "UP"
+      }
+    },
+    "R21": {
+      "kind": "R",
+      "value": "100 Ω",
+      "pins": {
+        "1": "EL",
+        "2": "LOW"
+      }
+    },
+    "R22": {
+      "kind": "R",
+      "value": "1,2 kΩ",
+      "pins": {
+        "1": "BDN",
+        "2": "V-"
+      }
+    },
+    "R23": {
+      "kind": "R",
+      "value": "68 Ω",
+      "pins": {
+        "1": "BL",
+        "2": "V-"
+      }
+    },
+    "R24": {
+      "kind": "R",
+      "value": "68 Ω",
+      "pins": {
+        "1": "V+",
+        "2": "BU"
+      }
+    },
+    "R25": {
+      "kind": "R",
+      "value": "2,5 Ω na schemacie; 2,49 Ω / 0,5 W RMN w wykazie",
+      "pins": {
+        "1": "Z1",
+        "2": "Z2"
+      }
+    },
+    "R26": {
+      "kind": "R",
+      "value": "2,5 Ω na schemacie; 2,49 Ω / 0,5 W RMN w wykazie",
+      "pins": {
+        "1": "OUTI",
+        "2": "Z1"
+      }
+    },
+    "R27": {
+      "kind": "R",
+      "value": "0,62 Ω / 2 W na schemacie; 0,62 Ω / 5 W RDO w wykazie",
+      "pins": {
+        "1": "OUTI",
+        "2": "OUT"
+      }
+    },
+    "R28": {
+      "kind": "R",
+      "value": "0,22 Ω / 5 W RDO; bezindukcyjny",
+      "pins": {
+        "1": "UP",
+        "2": "OUTI"
+      }
+    },
+    "R29": {
+      "kind": "R",
+      "value": "0,22 Ω / 5 W RDO; bezindukcyjny",
+      "pins": {
+        "1": "LOW",
+        "2": "OUTI"
+      }
+    },
+    "Rd": {
+      "kind": "POT",
+      "value": "100 Ω",
+      "pins": {
+        "1": "RD5",
+        "2": "RD6",
+        "W": "VP"
+      }
+    },
+    "Rc": {
+      "kind": "POT",
+      "value": "1 kΩ",
+      "pins": {
+        "1": "BI2",
+        "2": "VL",
+        "W": "VL"
+      }
+    },
+    "C1": {
+      "kind": "C",
+      "value": "2,2 nF",
+      "pins": {
+        "1": "INF",
+        "2": "GND"
+      }
+    },
+    "C2": {
+      "kind": "C",
+      "value": "22 µF / 16 V",
+      "pins": {
+        "1": "INF",
+        "2": "INB"
+      }
+    },
+    "C3": {
+      "kind": "C",
+      "value": "470 µF / 40 V",
+      "pins": {
+        "1": "VP",
+        "2": "GND"
+      }
+    },
+    "C4": {
+      "kind": "C",
+      "value": "470 µF / 40 V",
+      "pins": {
+        "1": "GND",
+        "2": "VM"
+      }
+    },
+    "C5": {
+      "kind": "C",
+      "value": "47 µF / 16 V; na wydruku omyłkowo C4, odręcznie C5",
+      "pins": {
+        "1": "CFB",
+        "2": "GND"
+      }
+    },
+    "C6": {
+      "kind": "C",
+      "value": "39 pF",
+      "pins": {
+        "1": "N1",
+        "2": "VH"
+      }
+    },
+    "C7": {
+      "kind": "C",
+      "value": "47 µF / 16 V",
+      "pins": {
+        "1": "VP",
+        "2": "VB8"
+      }
+    },
+    "C8": {
+      "kind": "C",
+      "value": "10 µF / 16 V",
+      "pins": {
+        "1": "IB2",
+        "2": "VM"
+      }
+    },
+    "C9": {
+      "kind": "C",
+      "value": "0,22 µF; w wykazie 100 V MKSE-20",
+      "pins": {
+        "1": "Z2",
+        "2": "GND"
+      }
+    },
+    "C10": {
+      "kind": "C",
+      "value": "470 µF / 40 V",
+      "pins": {
+        "1": "V+",
+        "2": "GND"
+      }
+    },
+    "C11": {
+      "kind": "C",
+      "value": "470 µF / 40 V",
+      "pins": {
+        "1": "GND",
+        "2": "V-"
+      }
+    },
+    "D1": {
+      "kind": "D",
+      "value": "BAYP95; w wykazie także BAP794",
+      "pins": {
+        "A": "ID",
+        "K": "VM"
+      }
+    },
+    "D2": {
+      "kind": "D",
+      "value": "BAYP95; w wykazie także BAP794",
+      "pins": {
+        "A": "IB1",
+        "K": "ID"
+      }
+    },
+    "D3": {
+      "kind": "D",
+      "value": "BAYP95; w wykazie także BAP794",
+      "pins": {
+        "A": "VP",
+        "K": "EP7"
+      }
+    },
+    "D4": {
+      "kind": "D",
+      "value": "typ nieopisany osobno na skanie",
+      "pins": {
+        "A": "BI3",
+        "K": "VL"
+      }
+    },
+    "D5": {
+      "kind": "D",
+      "value": "typ nieopisany osobno na skanie",
+      "pins": {
+        "A": "BI2",
+        "K": "BI3"
+      }
+    },
+    "D6": {
+      "kind": "D",
+      "value": "BAP811; wspólny opis przy D6/D7",
+      "pins": {
+        "A": "BI1",
+        "K": "BI2"
+      }
+    },
+    "D7": {
+      "kind": "D",
+      "value": "BAP811; wspólny opis przy D6/D7",
+      "pins": {
+        "A": "VH",
+        "K": "BI1"
+      }
+    },
+    "L1": {
+      "kind": "L",
+      "value": "5 µH",
+      "pins": {
+        "1": "OUTI",
+        "2": "OUT"
+      }
+    }
+  }
+}

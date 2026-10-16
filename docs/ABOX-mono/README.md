@@ -1,52 +1,60 @@
-# ABOX — końcówka mono, projekt wstępny
+# ABOX — kontrola połączeń i wariant roboczy
 
-Schemat mono bez zasilacza, opracowywany na podstawie dostarczonego skanu artykułu Urszuli Klapczyńskiej „Wzmacniacz 40 W o małych zniekształceniach” z „Radioelektronika”.
+**Po uwadze użytkownika ponownie porównano połączenia z oryginalnym skanem. Znaleziono i poprawiono błędne podłączenie R12 oraz niejednoznaczne skrzyżowania przewodów z symbolami elementów.** [Raport porównania](porownanie-z-oryginalem.md).
 
-Założenia modernizacji: zasilanie około ±50 V bez obciążenia, transformatory 2 × 36 V AC, kolumny nominalnie 6 Ω, docelowo możliwość pracy z 4 Ω. Uwzględnienia wymaga wzrost szyn do około ±55 V przy wyższym napięciu sieci. Para wejściowa: dobrane 2SC2240. Dwie pary końcowe na kanał: 2SA1943/2SC5200, z indywidualnymi rezystorami emiterowymi.
+## Odtworzenie oryginału
 
-**Aktualny uzgodniony cel: 100 W na 6 Ω na kanał, z docelowym stabilizowanym zasilaniem ±40 V stopni T1–T10.** T11–T18 i R19/R22 pozostają na głównych szynach. [Wymagania tego wariantu i obliczenia](wariant-100W-6ohm.md).
+Oryginalny rys. 2 z artykułu Urszuli Klapczyńskiej „Wzmacniacz 40 W o małych zniekształceniach”, „Radioelektronik”: ±30 V, jedna para końcowa, rezystory R28/R29 w kolektorach.
 
-T8/T9 zmieniono na **2SA949/2SC2229** po sprawdzeniu obu dostarczonych kart Toshiba. [Dane i kontrola punktu pracy T8](2SA949-ocena.md), [dane i kontrola punktu pracy T9](2SC2229-ocena.md). Rozszerzenie stabilizacji na kolektory T11/T15 pozostaje rozważanym wariantem; rysunek jeszcze go nie zawiera.
+- [Odtworzenie oryginału — PNG](oryginal.png)
+- [Odtworzenie oryginału — PDF](oryginal.pdf)
+- [Odtworzenie oryginału — SVG](oryginal.svg)
+- [Niezależna lista oryginalnych połączeń](oryginal-polaczenia.json)
+- [Oryginalne połączenia tranzystorów](oryginal-tranzystory.csv)
 
-[Sprawdzenie 2SC2229/2SA949 na T12/T16](T12-T16-ocena.md): obliczenia dopuszczają tę parę jako dobór roboczy dla celu 100 W / 6 Ω. Potwierdzenie pracy na kolumnach 4 Ω wymaga dalszej kontroli dynamicznego SOA i temperatury; rysunek nadal zachowuje wcześniejsze typy T12/T16.
+Zachowano połączenia odczytane ze skanu. Niepewną wartość R13 i oznaczenia części diod opisano jawnie. Nie jest to potwierdzenie poprawności wartości źródłowej ani parametrów działającego wzmacniacza.
 
-Rysunek w tym katalogu nadal przedstawia wcześniejszą wersję z filtrowaniem VP/VM przez R15/R16, a nie gotowe stabilizatory. Wymaga aktualizacji wraz z polaryzacją i doborem elementów. Przyjęcie celu 100 W nie oznacza, że tę moc już potwierdzono.
+## Wariant zmodyfikowany
 
-## Otwieranie schematu
+Cel: 100 W / 6 Ω na kanał, z możliwością dalszego opracowania pracy na kolumnach 4 Ω. Główne szyny około ±50 V; zewnętrzne stabilizowane VP/VM około ±40 V dla T1–T10 i kolektorów T11/T15. Dwie pary końcowe 2SA1943/2SC5200.
 
-- [Schemat PNG — podgląd](schemat.png)
-- [Schemat PDF — do powiększania i pobrania](schemat.pdf)
-- [Schemat SVG — wersja wektorowa](schemat.svg)
-- [Tabela połączeń tranzystorów](tranzystory.csv)
+- [Wariant roboczy — PNG](schemat.png)
+- [Wariant roboczy — PDF](schemat.pdf)
+- [Wariant roboczy — SVG](schemat.svg)
+- [Lista połączeń wariantu](polaczenia.json)
+- [Tabela tranzystorów](tranzystory.csv)
+- [Wymagania i obliczenia wstępne](wariant-100W-6ohm.md)
 
-Na GitHub plik PNG można otworzyć jako obraz. W przypadku braku podglądu PDF pobierz go przez przycisk pobierania pliku.
+Na schemacie VP/VM są osobnymi zaciskami zasilania, nie są połączone z głównymi szynami przez R15/R16. Nie zaprojektowano jeszcze wykonawczego układu stabilizatorów. Rozmieszczenie rezystorów końcowych i lokalnych pętli stopnia wyjściowego różni się świadomie od oryginału; szczegóły w raporcie porównania.
 
-Rysunek zawiera przewody i kropki połączeń. Skrzyżowania bez kropki nie są połączeniami. Powtarzające się oznaczenia sieci, np. FB, OUTI, EP1 i BU1, oznaczają te same połączenia elektryczne. Odsprzęganie lokalne jest częścią końcówki; główny zasilacz pozostaje poza schematem.
+2SC2240 pozostają parą wejściową. 2SA949/2SC2229 są wpisane jako dobór roboczy na T8/T9, T15/T11 i T16/T12. Nie oznacza to zatwierdzenia dynamicznego SOA i pracy na dowolnej kolumnie 4 Ω.
 
-## Stan projektu
+## Wynik kontroli
 
-**To schemat do przeglądu, a nie zatwierdzona dokumentacja wykonawcza.** Skontrolowano odtworzenie głównych połączeń względem oryginału. Nie wykonano kontroli ERC w programie CAD, symulacji z modelami tranzystorów ani pomiarów prototypu. Nie ma projektu PCB ani Gerberów.
+Odtworzona grafika oryginału: **68 elementów, 156 pinów, 48 sieci**. Wariant zmodyfikowany: **76 elementów, 174 piny, 54 sieci**.
 
-Do weryfikacji pozostają:
+Geometrię przewodów, punkty połączeń, końcówki elementów i etykiety porównano z listą oryginału odczytaną niezależnie ze skanu. Lista wariantu powstaje z listy oryginału przez jawne zmiany topologii. Kontrola wykrywa przerwy, zwarcia różnych sieci, brakujące elementy/piny i niepodłączone etykiety. To kontrola grafu połączeń, nie ERC programu CAD, SPICE ani pomiar wzmacniacza.
 
-- układ polaryzacji D4–D7/Rc i jego zachowanie termiczne;
-- kompensacja C6 oraz stabilność przy dwóch parach końcowych i obciążeniu reaktywnym;
-- napięcia, prądy, straty mocy i bezpieczny obszar pracy przy najwyższym napięciu zasilania;
-- sterowanie i chłodzenie MJE15032/MJE15033; mogą rozpraszać około 1 W już w spoczynku;
-- limiter SOA, ochrona głośnika przed DC i zabezpieczenie termiczne — jeszcze niezaprojektowane;
-- zgodność wyprowadzeń z kartami konkretnych producentów;
-- rozbieżność między R1 = 150 Ω / C1 = 2,2 nF na oryginalnym rysunku a podanym w tekście filtrem 70 kHz.
+## Ograniczenia
 
-Cel początkowego prądu spoczynkowego: 20 mA na tranzystor końcowy, czyli 4,4 mV na każdym 0,22 Ω. To cel do sprawdzenia, nie potwierdzenie działania przedstawionego układu polaryzacji.
+**Żaden z rysunków nie jest dokumentacją zatwierdzoną do wykonania PCB lub uruchomienia.**
 
-Wcześniejsze rysunki miały błędy lustra Wilsona i połączeń sterujących. Ten pakiet zawiera poprawiony rysunek. Wcześniejsze obliczenia stopnia sterującego wymagają ponowienia; nie należy na ich podstawie budować wzmacniacza.
+- R13: nieczytelny lub błędny zapis 82 kΩ / 8,2 kΩ; 82 kΩ daje niespójną polaryzację kaskody, ale nie zastąpiono tego rozstrzygnięciem rzekomo potwierdzonym w źródle.
+- D6/D7: zachowano oznaczenie BAP811 ze skanu, bez automatycznej zamiany na 1N4148. D4/D5 nie mają w skanie jednoznacznie podanego typu.
+- Polaryzacja, kompensacja, zapas amplitudy, SOA i chłodzenie wymagają dalszych obliczeń, symulacji i pomiarów.
+- Limiter SOA, ochrona głośnika przed DC i ochrona termiczna pozostają do opracowania. Nie ma PCB ani Gerberów.
 
-## Odtwarzanie rysunku
+Poprzednie obliczenia zależne od błędnego węzła R12, w szczególności prądu R12 i dzielnika polaryzacji kaskody, są wycofane. Dane katalogowe tranzystorów pozostają prawidłowo odczytane: [2SC2229](2SC2229-ocena.md), [2SA949](2SA949-ocena.md). [Ocena T12/T16](T12-T16-ocena.md) jest uproszczonym modelem wyłącznie zmodyfikowanego stopnia wyjściowego, nie potwierdzeniem oryginału ani całego wzmacniacza.
 
-Wymagane Python 3, matplotlib i numpy. Z katalogu tego pliku:
+## Odtwarzanie i kontrola
+
+Python 3, matplotlib i numpy:
 
 ```sh
+python rysuj_schemat.py --oryginal
 python rysuj_schemat.py
+python -B sprawdz_polaczenia.py oryginal-polaczenia.json oryginal-geometria.json
+python -B sprawdz_polaczenia.py
 ```
 
-Skrypt odtwarza trzy pliki `schemat.pdf`, `schemat.png` i `schemat.svg`. Jest źródłem rysunku wektorowego, a nie projektem KiCad ani symulatorem obwodu.
+Te same nazwy sieci oznaczają połączenie elektryczne. Skrzyżowania bez kropki nie są połączeniami. Pliki SVG są wektorowe; PNG można otworzyć na GitHub, PDF pobrać i powiększać.

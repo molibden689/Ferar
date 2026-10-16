@@ -1,5 +1,7 @@
 # 2SA949 — dane z dostarczonej karty Toshiba
 
+Po ponownej kontroli schematu poprawiono połączenie R12. Dane katalogowe i kontrola pojedynczego punktu 3 mA / 80 V pozostają poprawne, ale nie potwierdzają polaryzacji całej końcówki. [Raport korekty](porownanie-z-oryginalem.md).
+
 Źródło: plik `2SA949.PDF` przekazany przez użytkownika, cztery strony Toshiba, data dokumentu 2006-11-09. Odczytano tabelę parametrów oraz rysunki wyprowadzeń, DC SOA i zależności mocy od temperatury. Ocena nie opiera się na założeniu identyczności parametrów z 2SC2229.
 
 ## Parametry PNP
@@ -34,7 +36,7 @@ Wykres pracy ciągłej SOA na stronie 3 dopuszcza przy 80 V około 10 mA przy 25
 
 PC ≈ 0,8 × (150 − 70)/(150 − 25) = 0,512 W.
 
-Przy 80 V odpowiada to około 6,4 mA. Przyjęte 3 mA i 0,24 W mieszczą się we wstępnie odczytanym DC SOA i ograniczeniu cieplnym także przy 70°C. W dotychczasowym schemacie z filtrowanymi szynami bliskimi ±50 V konserwatywne 100 V / 3 mA oznacza około 0,30 W, również poniżej tego limitu.
+Przy 80 V odpowiada to około 6,4 mA. Przyjęte 3 mA i 0,24 W mieszczą się we wstępnie odczytanym DC SOA i ograniczeniu cieplnym także przy 70°C. Dla wcześniejszego schematu z filtrowanymi szynami bliskimi ±50 V rozpatrywano konserwatywny punkt 100 V / 3 mA, czyli około 0,30 W, również poniżej tego limitu. Aktualny rysunek ma osobne wejścia VP/VM.
 
 Rzeczywisty prąd T8 ma też składową dynamiczną: ładuje pojemności kompensacji i steruje następnym stopniem. Powyższe obliczenie nie zatwierdza automatycznie pełnych przebiegów podczas szybkich zmian sygnału, rozruchu, przesterowania ani awarii. Te stany wymagają dalszej weryfikacji.
 

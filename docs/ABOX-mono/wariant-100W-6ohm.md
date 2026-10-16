@@ -1,5 +1,7 @@
 # Uzgodniony wariant: 100 W / 6 Ω na kanał
 
+**Po ponownej kontroli oryginału:** poprawiono R12 na GND–IB2 i wycofano obliczenia z jego błędnego połączenia VB8–IB2. R13 i dobór diod wymagają wyjaśnienia. [Raport porównania i aktualne połączenia](porownanie-z-oryginalem.md).
+
 ## Założenia
 
 - Moc docelowa: 100 W sinusoidalnie na nominalnym obciążeniu 6 Ω.
@@ -13,11 +15,11 @@
 
 ## Podział zasilania
 
-Stabilizowane VP/VM mają zasilać T1–T10, w miejscu dotychczasowych filtrowanych szyn za R15/R16.
+Stabilizowane VP/VM mają zasilać T1–T10 oraz kolektory T11/T15. Na rysunku są osobnymi wejściami zewnętrznego zasilania; nie są połączone z głównymi szynami przez R15/R16.
 
-Na głównych szynach zostają T11–T18 wraz z R19/R22. Kolektory T12/T16 są jednocześnie węzłami baz T13/T17 i nie stanowią niezależnych wejść zasilania.
+Główny stopień wyjściowy T12–T18 wraz z R19/R22 zachowuje połączenia z głównymi szynami. Kolektory T12/T16 są jednocześnie węzłami baz T13/T17 i nie stanowią niezależnych wejść zasilania.
 
-Regulatory muszą być dobrane również do pełnego napięcia wejściowego podczas rozruchu i do zaniku jednej szyny. Budżet obciążenia wyjścia każdego regulatora: wstępnie do 20 mA na kanał. Dla 55 V na wejściu i 40 V na wyjściu odpowiada to około 0,30 W strat tranzystora szeregowego, bez strat układu odniesienia.
+Regulatory muszą być dobrane również do pełnego napięcia wejściowego podczas rozruchu i do zaniku jednej szyny. Budżet obciążenia wyjścia każdego regulatora: wstępnie do 30 mA na kanał. Dla 55 V na wejściu i 40 V na wyjściu odpowiada to około 0,45 W strat tranzystora szeregowego, bez strat układu odniesienia.
 
 Przy obniżeniu VP/VM do ±40 V rezystory R7/R12 trzeba ponownie dobrać. Wartości około 20–20,5 kΩ są punktem wyjścia do zachowania zbliżonych prądów; nie stanowią jeszcze zatwierdzonej listy elementów. Poprzednich 25,5 kΩ nie należy automatycznie przenosić do nowego wariantu.
 
@@ -46,4 +48,4 @@ Jeżeli doliny tętnień głównego zasilania spadną poniżej napięcia wymagan
 
 ## Aktualny stan
 
-To zapis celu projektu i obliczeń wstępnych. Schemat PDF/PNG/SVG nadal wymaga aktualizacji do stabilizatorów i nowego doboru elementów. Nie wykonano symulacji z modelami producentów ani pomiarów. Układ polaryzacji, kompensacja, limiter SOA, ochrona głośnika przed DC i ochrona termiczna pozostają do opracowania.
+To zapis celu projektu i obliczeń wstępnych. Schemat PDF/PNG/SVG pokazuje już osobne wejścia VP/VM oraz roboczy dobór tranzystorów. Sam układ stabilizatorów pozostaje do opracowania. Nie wykonano symulacji z modelami producentów ani pomiarów. Układ polaryzacji, niepewna wartość R13, kompensacja, limiter SOA, ochrona głośnika przed DC i ochrona termiczna pozostają do opracowania.

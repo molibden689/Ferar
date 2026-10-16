@@ -1,5 +1,7 @@
 # 2SC2229 — dane z dostarczonej karty Toshiba
 
+Po ponownej kontroli schematu poprawiono połączenie R12. Dane katalogowe i kontrola pojedynczego punktu 3 mA / 80 V pozostają poprawne, ale nie potwierdzają polaryzacji całej końcówki. [Raport korekty](porownanie-z-oryginalem.md).
+
 Źródło: plik `2SC2229.PDF` przekazany przez użytkownika, trzy strony Toshiba, data dokumentu 1997-09-01. Karta została odczytana wizualnie, łącznie z wykresami SOA i obniżania dopuszczalnej mocy z temperaturą. Nie zakładano parametrów 2SA949 na podstawie tej karty NPN.
 
 ## Parametry
@@ -34,7 +36,7 @@ PC(70°C) ≈ 0,8 × (150 − 70)/(150 − 25) = 0,512 W.
 
 Daje to przy 80 V limit około 6,4 mA. Obliczony punkt 3 mA / 80 V mieści się w tych ograniczeniach. To kontrola przyjętego punktu pracy ciągłej, a nie potwierdzenie wszystkich przebiegów rozruchu, przesterowania i uszkodzeń.
 
-W dotychczasowym rysunku z filtrowanymi szynami bliskimi ±50 V T9 może mieć około 100 V przy 3 mA, czyli około 0,30 W. Także ten punkt mieści się we wstępnie odczytanym DC SOA i limicie cieplnym przy 70°C. Rysunek nadal nie zawiera stabilizatorów.
+We wcześniejszym rysunku z filtrowanymi szynami bliskimi ±50 V rozpatrywano około 100 V przy 3 mA na T9, czyli około 0,30 W. Taki pojedynczy punkt mieści się w odczytanym DC SOA i limicie cieplnym przy 70°C. Aktualny rysunek ma osobne wejścia VP/VM; sam układ stabilizatorów pozostaje do opracowania.
 
 Na tej podstawie w projekcie wstępnym zmieniono oznaczenie T9 na 2SC2229.
 

@@ -1,10 +1,12 @@
 # T12 / T16 — ocena 2SC2229 / 2SA949
 
+**Zakres po ponownej kontroli oryginału:** model dotyczy zmodyfikowanego stopnia z rezystorami emiterowymi końcowych i sprzężeniem do OUTI, a nie oryginalnego stopnia z kolektorowymi R28/R29. Nie potwierdza on polaryzacji kaskody; wykryty błąd R12 oraz niepewność R13 opisano w [raporcie porównania](porownanie-z-oryginalem.md).
+
 ## Wynik
 
 Para jest możliwym doborem roboczym dla celu 100 W / 6 Ω. Obliczona trajektoria na obciążeniu rezystancyjnym mieści się w gorącym DC SOA obu kart przy przyjętych parametrach tranzystorów. Nie ma podstaw do odrzucenia jej tylko z powodu obudowy TO-92MOD.
 
-Nie potwierdzono jeszcze odporności na rzeczywistą kolumnę 4 Ω we wszystkich temperaturach, przebiegach i stanach przeciążenia. Schemat nadal pokazuje wcześniejsze KSC3503/KSA1381 na T12/T16; niniejsza ocena nie zatwierdza automatycznie całego wzmacniacza ani jego zabezpieczenia.
+Nie potwierdzono jeszcze odporności na rzeczywistą kolumnę 4 Ω we wszystkich temperaturach, przebiegach i stanach przeciążenia. Schemat pokazuje obecnie tę parę jako dobór roboczy T12/T16; niniejsza ocena nie zatwierdza automatycznie całego wzmacniacza ani jego zabezpieczenia.
 
 ## Zakres obliczeń
 
