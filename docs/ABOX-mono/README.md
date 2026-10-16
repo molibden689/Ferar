@@ -6,6 +6,8 @@ Założenia modernizacji: zasilanie około ±50 V bez obciążenia, transformato
 
 **Aktualny uzgodniony cel: 100 W na 6 Ω na kanał, z docelowym stabilizowanym zasilaniem ±40 V stopni T1–T10.** T11–T18 i R19/R22 pozostają na głównych szynach. [Wymagania tego wariantu i obliczenia](wariant-100W-6ohm.md).
 
+T9 zmieniono na **2SC2229** po sprawdzeniu dostarczonej karty Toshiba. [Dane katalogowe i kontrola punktu pracy T9](2SC2229-ocena.md). Rozszerzenie stabilizacji na kolektory T11/T15 pozostaje rozważanym wariantem; rysunek jeszcze go nie zawiera.
+
 Rysunek w tym katalogu nadal przedstawia wcześniejszą wersję z filtrowaniem VP/VM przez R15/R16, a nie gotowe stabilizatory. Wymaga aktualizacji wraz z polaryzacją i doborem elementów. Przyjęcie celu 100 W nie oznacza, że tę moc już potwierdzono.
 
 ## Otwieranie schematu

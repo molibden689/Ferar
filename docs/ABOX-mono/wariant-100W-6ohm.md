@@ -8,7 +8,7 @@
 - Szyny główne około ±50 V bez obciążenia, sprawdzenie pracy również przy około ±55 V.
 - Docelowe stabilizowane szyny VP/VM: wstępnie ±40 V, do sprawdzenia zapasu regulacji.
 - Para wejściowa T1/T2: dobrane 2SC2240.
-- Posiadane 2SA949 i 2SC2229 są kandydatami odpowiednio na T8 i T9. Nie zatwierdzono jeszcze ich kart producenta ani zamiany wszystkich pozostałych tranzystorów.
+- T9: 2SC2229, dobrany na podstawie dostarczonej karty Toshiba i wstępnej kontroli DC SOA. [Dane i ocena](2SC2229-ocena.md). Posiadany 2SA949 pozostaje kandydatem na T8; nie sprawdzono jeszcze jego własnej karty producenta ani zamiany wszystkich pozostałych tranzystorów.
 - Dwie pary końcowe 2SA1943/2SC5200 na kanał, indywidualne rezystory emiterowe 0,22 Ω.
 
 ## Podział zasilania
