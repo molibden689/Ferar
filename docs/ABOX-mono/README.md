@@ -8,6 +8,8 @@ Założenia modernizacji: zasilanie około ±50 V bez obciążenia, transformato
 
 T8/T9 zmieniono na **2SA949/2SC2229** po sprawdzeniu obu dostarczonych kart Toshiba. [Dane i kontrola punktu pracy T8](2SA949-ocena.md), [dane i kontrola punktu pracy T9](2SC2229-ocena.md). Rozszerzenie stabilizacji na kolektory T11/T15 pozostaje rozważanym wariantem; rysunek jeszcze go nie zawiera.
 
+[Sprawdzenie 2SC2229/2SA949 na T12/T16](T12-T16-ocena.md): obliczenia dopuszczają tę parę jako dobór roboczy dla celu 100 W / 6 Ω. Potwierdzenie pracy na kolumnach 4 Ω wymaga dalszej kontroli dynamicznego SOA i temperatury; rysunek nadal zachowuje wcześniejsze typy T12/T16.
+
 Rysunek w tym katalogu nadal przedstawia wcześniejszą wersję z filtrowaniem VP/VM przez R15/R16, a nie gotowe stabilizatory. Wymaga aktualizacji wraz z polaryzacją i doborem elementów. Przyjęcie celu 100 W nie oznacza, że tę moc już potwierdzono.
 
 ## Otwieranie schematu
