@@ -20,7 +20,7 @@ if not original:
  expected['notes']=[
   'To modernizacja, nie kopia oryginału. Jawne zmiany opisano w porownanie-z-oryginalem.md.',
   'VP/VM są zewnętrznymi wejściami stabilizowanych ±40 V; nie dodano układu regulatorów. Kolektory T11/T15 korzystają z VP/VM.',
-  'Dwie pary końcowe, rezystory emiterowe i bazowe; kolektory T13/T17 oraz R20/R21 wracają do OUTI. Oryginał ma odrębne UP/LOW przed kolektorowymi R28/R29.',
+  'Jedna para końcowa, rezystory emiterowe i bazowe; kolektory T13/T17 oraz R20/R21 wracają do OUTI. Oryginał ma odrębne UP/LOW przed kolektorowymi R28/R29.',
   'R12=GND–IB2. R13=VB8–GND; wartość R13 nadal wymaga potwierdzenia. Nie zatwierdzono zamienników D4–D7.',
   'Zgodność grafu połączeń nie oznacza potwierdzenia stabilności, mocy, SOA ani bezpieczeństwa uruchomienia.'
  ]
@@ -31,14 +31,13 @@ if not original:
  expected['components']['T15']['pins']['C']='VM'
  for ref in ('T13','T17'):expected['components'][ref]['pins']['C']='OUTI'
  for ref in ('R20','R21'):expected['components'][ref]['pins']['2']='OUTI'
- for suffix,base,emit,rail,typ in [('a','BU1','EP1','V+','2SA1943'),('b','BU2','EP2','V+','2SA1943'),('c','BL1','EN1','V-','2SC5200'),('d','BL2','EN2','V-','2SC5200')]:
-  upper=suffix in ('a','b');letter='a' if suffix in ('a','c') else 'b'
-  ref=('T14' if upper else 'T18')+letter
+ for upper,base,emit,rail,typ in [(True,'BU1','EP1','V+','2SA1943'),(False,'BL1','EN1','V-','2SC5200')]:
+  ref='T14' if upper else 'T18'
   expected['components'][ref]={'kind':'Q','value':typ,'pins':{'B':base,'C':'OUTI','E':emit}}
-  n={'a':1,'b':2,'c':3,'d':4}[suffix]
+  n=1 if upper else 2
   expected['components'][f'RE{n}']={'kind':'R','value':'0,22 Ω / 5 W','pins':{'1':rail if upper else emit,'2':emit if upper else rail}}
-  expected['components'][('RBU' if upper else 'RBL')+('1' if letter=='a' else '2')]={'kind':'R','value':'4,7 Ω','pins':{'1':'BU' if upper else 'BL','2':base}}
-  expected['components'][('R24' if upper else 'R23')+letter]={'kind':'R','value':'68 Ω','pins':{'1':emit if upper else base,'2':base if upper else emit}}
+  expected['components']['RBU' if upper else 'RBL']={'kind':'R','value':'4,7 Ω','pins':{'1':'BU' if upper else 'BL','2':base}}
+  expected['components']['R24' if upper else 'R23']={'kind':'R','value':'68 Ω','pins':{'1':emit if upper else base,'2':base if upper else emit}}
  expected['components']['R7']['value']='20,5 kΩ, wstępnie'
  expected['components']['R12']['value']='20,5 kΩ, wstępnie'
  expected['components']['R13']['value']='8,2 kΩ? — wartość do potwierdzenia'
@@ -129,7 +128,7 @@ def q(x,y,ref,typ,p):
  text(tx,ty,ref+'\n'+typ,8,fontweight='bold',va='center')
  record_wires=True
 
-text(1,78,'Radioelektronik — odtworzenie połączeń rys. 2, ±30 V' if original else 'ABOX — wariant roboczy 100 W / 6 Ω, dwie pary końcowe',18,fontweight='bold')
+text(1,78,'Radioelektronik — odtworzenie połączeń rys. 2, ±30 V' if original else 'ABOX — wariant roboczy 100 W / 6 Ω, jedna para końcowa',18,fontweight='bold')
 text(1,75,'KONTROLA POŁĄCZEŃ, NIE DOKUMENTACJA WYKONAWCZA. R13 i dobór diod wymagają wyjaśnienia. Skrzyżowanie bez kropki = brak połączenia.',9)
 # Main and filtered rails.
 wire((1,72),(148,72));text(150,72,'+30 V' if original else '+50 V główne',11,va='center');netlabel('V+',(1,72))
@@ -210,7 +209,7 @@ q(110,59,'T13','MJE15033','P');q(110,23,'T17','MJE15032','N')
 wire((99,54),(99,59),(107.5,59));r((99,72),(99,59),'R19','1k2');dot(99,59);dot(99,72)
 wire((99,26),(99,23),(107.5,23));r((99,23),(99,4),'R22','1k2');dot(99,23);dot(99,4)
 # The reference keeps the separate UP / LOW nodes and collector resistors.
-# The modern two-pair version is an explicitly documented topology change.
+# The modern version is an explicitly documented topology change.
 wire((111,56),(111,43 if original else 40))
 wire((111,26),(111,37 if original else 40))
 dot(111,43 if original else 40);dot(111,37 if original else 40)
@@ -230,29 +229,22 @@ if original:
   netlabel(n1,(x-3,y));netlabel(n2,(x+3,y))
  netlabel('BU',(115,62));netlabel('BL',(115,20))
 else:
- q(126,56,'T14a','2SA1943','P');q(139,56,'T14b','2SA1943','P')
- q(126,24,'T18a','2SC5200','N');q(139,24,'T18b','2SC5200','N')
+ q(126,56,'T14','2SA1943','P');q(126,24,'T18','2SC5200','N')
  wire((111,62),(115,62),(115,56))
- r((115,56),(121,56),'RBU1','4R7 *');wire((121,56),(123.5,56))
- wire((115,62),(114,62),(114,49),(131,49));r((131,49),(139,49),'RBU2','4R7 *')
- wire((139,49),(146,49),(146,60),(134,60),(134,56),(136.5,56));dot(115,62)
- wire((111,20),(115,20),(115,26));r((115,26),(121,26),'RBL1','4R7 *')
+ r((115,56),(121,56),'RBU','4R7 *');wire((121,56),(123.5,56))
+ wire((111,20),(115,20),(115,26));r((115,26),(121,26),'RBL','4R7 *')
  wire((121,26),(121,24),(123.5,24))
- wire((115,20),(114,20),(114,31),(132,31));r((132,31),(139,31),'RBL2','4R7 *')
- wire((139,31),(146,31),(146,18),(134,18),(134,24),(136.5,24));dot(115,20)
- for x,ref in [(127,'RE1'),(140,'RE2')]:
-  r((x,72),(x,59),ref,'0R22 / 5 W');dot(x,72)
-  wire((x,53),(x,40));dot(x,40)
- for x,ref in [(127,'RE3'),(140,'RE4')]:
-  r((x,21),(x,4),ref,'0R22 / 5 W');dot(x,4)
-  wire((x,27),(x,40));dot(x,40)
- for x,y,ref,net1,net2 in [(115,66,'R24a','EP1','BU1'),(153,66,'R24b','EP2','BU2'),(115,11,'R23a','BL1','EN1'),(153,11,'R23b','BL2','EN2')]:
+ r((127,72),(127,59),'RE1','0R22 / 5 W');dot(127,72)
+ wire((127,53),(127,40));dot(127,40)
+ r((127,21),(127,4),'RE2','0R22 / 5 W');dot(127,4)
+ wire((127,27),(127,40));dot(127,40)
+ for x,y,ref,net1,net2 in [(115,66,'R24','EP1','BU1'),(115,11,'R23','BL1','EN1')]:
   r((x-3,y),(x+3,y),ref,'68 Ω');text(x-3.4,y,net1,7,ha='right',va='center');text(x+3.4,y,net2,7,va='center')
   netlabel(net1,(x-3,y));netlabel(net2,(x+3,y))
- for name,pt in [('EP1',(127,59)),('EP2',(140,59)),('EN1',(127,21)),('EN2',(140,21)),('BU1',(123.5,56)),('BU2',(136.5,56)),('BL1',(123.5,24)),('BL2',(136.5,24))]:
+ for name,pt in [('EP1',(127,59)),('EN1',(127,21)),('BU1',(123.5,56)),('BL1',(123.5,24))]:
   netlabel(name,pt)
- text(127.5,59,'EP1',7);text(140.5,59,'EP2',7);text(127.5,21,'EN1',7);text(140.5,21,'EN2',7)
- text(121,57,'BU1',7);text(135,57,'BU2',7);text(121,22,'BL1',7);text(135,22,'BL2',7)
+ text(127.5,59,'EP1',7);text(127.5,21,'EN1',7)
+ text(121,57,'BU1',7);text(121,22,'BL1',7)
 # Output filter and Zobel.
 register('L1','L',{'1':(150,40),'2':(156.8,40)},'5 µH')
 wire((147,40),(150,40))
@@ -262,7 +254,7 @@ for i in range(4):
 wire((156.8,40),(163,40));text(154,38,'L1 5 µH' if original else 'L1 5 µH / ≥12 A *',7,ha='center');text(160,42,'OUT',11)
 r((149,45),(158,45),'R27','0R62 / 5 W');wire((149,45),(149,40));wire((158,45),(158,40));dot(149,40);dot(158,40)
 r((149,40),(149,33),'R26','2R49 / 2 W');r((149,33),(149,26),'R25','2R49 / 2 W');c((149,26),(149,18),'C9','220 nF / 250 V');ground(149,18)
-text(159,36,'głośnik\n8 Ω' if original else 'głośnik\n4–8 Ω',9);ground(163,30);wire((163,30),(163,32))
+text(159,36,'głośnik\n8 Ω' if original else 'głośnik\n6 Ω — cel',9);ground(163,30);wire((163,30),(163,32))
 # Local bypass capacitors, connected by rail labels to keep readability.
 for x,ref,top,bottom in [(11,'C3','VP','GND'),(48,'C4','GND','VM'),(84,'C10','V+','GND'),(121,'C11','GND','V−')]:
  c((x,-1),(x+9,-1),ref,'470 µF / 100 V');text(x-.5,-1,top,8,ha='right',va='center');text(x+9.5,-1,bottom,8,va='center')
@@ -281,5 +273,5 @@ with csv_path.open('w',newline='') as stream:
  for ref,component in expected['components'].items():
   if component['kind']=='Q':
    name=component['value'].split(';')[0]
-   pnp=ref in ('T4','T5','T6','T7','T8','T13','T14','T14a','T14b','T15','T16')
+   pnp=ref in ('T4','T5','T6','T7','T8','T13','T14','T15','T16')
    writer.writerow([ref,name,'PNP' if pnp else 'NPN',component['pins']['B'],component['pins']['C'],component['pins']['E']])

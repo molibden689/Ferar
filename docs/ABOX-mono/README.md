@@ -16,7 +16,7 @@ Zachowano połączenia odczytane ze skanu. Niepewną wartość R13 i oznaczenia 
 
 ## Wariant zmodyfikowany
 
-Cel: 100 W / 6 Ω na kanał, z możliwością dalszego opracowania pracy na kolumnach 4 Ω. Główne szyny około ±50 V; zewnętrzne stabilizowane VP/VM około ±40 V dla T1–T10 i kolektorów T11/T15. Dwie pary końcowe 2SA1943/2SC5200.
+Cel: 100 W / 6 Ω na kanał. Zgodnie z decyzją użytkownika stopień końcowy ma **jedną parę: T14 = 2SA1943 (PNP), T18 = 2SC5200 (NPN)**. Główne szyny około ±50 V; zewnętrzne stabilizowane VP/VM około ±40 V dla T1–T10 i kolektorów T11/T15. Wcześniejszy postulat pracy także na kolumnach 4 Ω pozostaje do weryfikacji dla jednej pary; nie jest potwierdzoną specyfikacją.
 
 - [Wariant roboczy — PNG](schemat.png)
 - [Wariant roboczy — PDF](schemat.pdf)
@@ -27,11 +27,13 @@ Cel: 100 W / 6 Ω na kanał, z możliwością dalszego opracowania pracy na kolu
 
 Na schemacie VP/VM są osobnymi zaciskami zasilania, nie są połączone z głównymi szynami przez R15/R16. Nie zaprojektowano jeszcze wykonawczego układu stabilizatorów. Rozmieszczenie rezystorów końcowych i lokalnych pętli stopnia wyjściowego różni się świadomie od oryginału; szczegóły w raporcie porównania.
 
+Każdy tranzystor końcowy ma jeden rezystor emiterowy 0,22 Ω / 5 W (RE1/RE2), bazowy 4,7 Ω (RBU/RBL) i baza–emiter 68 Ω (R24/R23). Usunięto drugą parę wraz z jej rezystorami. Obliczenia T12/T16 również dotyczą już jednej pary.
+
 2SC2240 pozostają parą wejściową. 2SA949/2SC2229 są wpisane jako dobór roboczy na T8/T9, T15/T11 i T16/T12. Nie oznacza to zatwierdzenia dynamicznego SOA i pracy na dowolnej kolumnie 4 Ω.
 
 ## Wynik kontroli
 
-Odtworzona grafika oryginału: **68 elementów, 156 pinów, 48 sieci**. Wariant zmodyfikowany: **76 elementów, 174 piny, 54 sieci**.
+Odtworzona grafika oryginału: **68 elementów, 156 pinów, 48 sieci**. Wariant zmodyfikowany z jedną parą: **68 elementów, 156 pinów, 50 sieci**.
 
 Geometrię przewodów, punkty połączeń, końcówki elementów i etykiety porównano z listą oryginału odczytaną niezależnie ze skanu. Lista wariantu powstaje z listy oryginału przez jawne zmiany topologii. Kontrola wykrywa przerwy, zwarcia różnych sieci, brakujące elementy/piny i niepodłączone etykiety. To kontrola grafu połączeń, nie ERC programu CAD, SPICE ani pomiar wzmacniacza.
 

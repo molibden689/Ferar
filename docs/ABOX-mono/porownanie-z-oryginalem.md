@@ -51,7 +51,8 @@ Wariant modernizowany ma:
 - główne ±50 V i osobne zewnętrzne stabilizowane VP/VM ±40 V;
 - kolektory T11/T15 na VP/VM, resztę stopnia wyjściowego przy głównych szynach;
 - zmienione typy tranzystorów, w tym 2SA949/2SC2229 na T8/T9, T15/T11 i roboczo T16/T12;
-- dwie pary końcowe i osobne rezystory emiterowe 0,22 Ω oraz bazowe 4,7 Ω;
+- jedną parę końcową: T14 = 2SA1943 (PNP), T18 = 2SC5200 (NPN), zgodnie z późniejszą decyzją użytkownika;
+- po jednym rezystorze emiterowym 0,22 Ω / 5 W (RE1/RE2) i bazowym 4,7 Ω (RBU/RBL) na tranzystor końcowy;
 - brak oryginalnych kolektorowych R28/R29; przez to UP/LOW zostają zastąpione OUTI i do OUTI wracają też R20/R21 oraz kolektory T13/T17;
 - osobne rezystory baza–emiter 68 Ω dla końcowych;
 - wstępne R7/R12 = 20,5 kΩ przy ±40 V, zamiast oryginalnych 15 kΩ przy ±30 V;
@@ -59,9 +60,11 @@ Wariant modernizowany ma:
 
 Przeniesienie rezystorów końcowych z kolektorów do emiterów oraz połączeń lokalnego sprzężenia jest istotną zmianą topologii. Nie jest to dosłowna kopia oryginału. Wymaga osobnej kontroli stabilności, podziału prądów i zabezpieczeń.
 
+Wcześniejszy wariant modernizacji miał dwie pary końcowe. Aktualny usuwa dodatkową parę i jej sześć rezystorów; zachowuje pozostałe połączenia modernizacji. Jedna para jest założeniem projektu 100 W / 6 Ω, a nie potwierdzeniem pracy na dowolnej kolumnie 4 Ω.
+
 ## Kontrola i granice wniosku
 
-Oryginał: 68 elementów, 156 pinów, 48 sieci. Modernizacja: 76 elementów, 174 piny, 54 sieci.
+Oryginał: 68 elementów, 156 pinów, 48 sieci. Modernizacja z jedną parą: 68 elementów, 156 pinów, 50 sieci.
 
 Rysownik eksportuje odcinki przewodów, punkty połączeń i końcówki elementów. Niezależny skrypt porównuje ich graf z listą odczytaną ze skanu oraz z jawnymi zmianami modernizacji. Kontrola obejmuje brakujące piny/elementy, przerwy, zwarcia różnych sieci oraz niepodłączone etykiety.
 
