@@ -44,4 +44,4 @@ Przy samym prądzie spoczynkowym około 3 mA i VCE około 80 V straty także wyn
 
 Przykładowo 80 V × 10 mA = 0,80 W: granica przy 25°C i przekroczenie limitu przy podwyższonej temperaturze. Dlatego nie zatwierdzono automatycznej zamiany T11 ani T12 na podstawie samego punktu spoczynkowego.
 
-T8 wymaga osobnej weryfikacji dokumentacji PNP 2SA949. Kompensacja i działanie całego wzmacniacza nadal wymagają symulacji i pomiarów.
+Po dostarczeniu osobnej karty PNP 2SA949 przeprowadzono również [ocenę T8](2SA949-ocena.md). Kompensacja i działanie całego wzmacniacza nadal wymagają symulacji i pomiarów.

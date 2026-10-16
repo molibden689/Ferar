@@ -94,7 +94,7 @@ wire((34.5,36),(32,36));text(31.7,36,'FB',8,ha='right',va='center')
 r((32,36),(32,30),'R9','2 kΩ');c((32,30),(32,24),'C5','47 µF');ground(32,24)
 r((34,19),(42,19),'R10','47 kΩ');text(33,19,'FB',8,ha='right',va='center');text(43,19,'OUTI',8,va='center')
 # VAS with actual N1 wire and Miller compensation.
-q(55,57,'T7','KSA992','P');q(55,49,'T8','KSA1381','P')
+q(55,57,'T7','KSA992','P');q(55,49,'T8','2SA949','P')
 wire((29,43),(41,43),(41,57),(52.5,57));dot(29,43)
 diode((56,68),(56,60),'D3');dot(56,68)
 wire((56,54),(56,52));wire((56,46),(64,46));text(64.3,46,'VH',8,va='center')
