@@ -5,6 +5,7 @@
     "VP/VM są zewnętrznymi wejściami stabilizowanych ±40 V; nie dodano układu regulatorów. Kolektory T11/T15 korzystają z VP/VM.",
     "Jedna para końcowa, rezystory emiterowe i bazowe; kolektory T13/T17 oraz R20/R21 wracają do OUTI. Oryginał ma odrębne UP/LOW przed kolektorowymi R28/R29.",
     "R12=GND–IB2. R13=VB8–GND; wartość R13 nadal wymaga potwierdzenia. Nie zatwierdzono zamienników D4–D7.",
+    "T13=2SA1930 PNP, T17=2SC5171 NPN zgodnie z wyborem użytkownika; dobór roboczy. Nie zweryfikowano karty producenta, fizycznego pinoutu ani SOA tej pary.",
     "Zgodność grafu połączeń nie oznacza potwierdzenia stabilności, mocy, SOA ani bezpieczeństwa uruchomienia."
   ],
   "components": {
@@ -118,7 +119,7 @@
     },
     "T13": {
       "kind": "Q",
-      "value": "MJE15033",
+      "value": "2SA1930",
       "pins": {
         "B": "BDP",
         "C": "OUTI",
@@ -145,7 +146,7 @@
     },
     "T17": {
       "kind": "Q",
-      "value": "MJE15032",
+      "value": "2SC5171",
       "pins": {
         "B": "BDN",
         "C": "OUTI",

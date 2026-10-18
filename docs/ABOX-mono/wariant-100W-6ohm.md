@@ -12,6 +12,7 @@
 - Para wejściowa T1/T2: dobrane 2SC2240.
 - T8: 2SA949 i T9: 2SC2229, dobrane na podstawie dostarczonych kart Toshiba i wstępnej kontroli DC SOA. [Dane i ocena T8](2SA949-ocena.md), [dane i ocena T9](2SC2229-ocena.md). Nie zatwierdzono automatycznej zamiany wszystkich pozostałych tranzystorów na tę parę.
 - Jedna para końcowa na kanał, zgodnie z decyzją użytkownika: T14 = 2SA1943 (górny PNP), T18 = 2SC5200 (dolny NPN).
+- Sterujące wybrane przez użytkownika: T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN). To dobór roboczy; fizyczny pinout i dopuszczalne warunki pracy wymagają potwierdzenia w karcie producenta. [Ocena obciążenia](T13-T17-ocena.md).
 - Po jednym rezystorze emiterowym 0,22 Ω / 5 W (RE1/RE2), bazowym 4,7 Ω (RBU/RBL) i baza–emiter 68 Ω (R24/R23) na tranzystor końcowy. Topologia lokalnego sprzężenia pozostaje taka jak w dotychczasowym wariancie modernizacji.
 
 ## Podział zasilania
@@ -43,7 +44,7 @@ Dla idealizowanego stopnia klasy B i stałych szyn ±50 V, przy 100 W/6 Ω pobó
 
 Przy jednej parze idealizowane średnie straty przypadające na jeden tranzystor wynoszą około 41,9 W przy ±50 V i 51,1 W przy ±55 V. To średnia za pełny okres, przed wydzieleniem strat na rezystorach i uwzględnieniem udziału sterujących; nie jest to porównanie chwilowego punktu pracy z SOA. Dla rezystora 6 Ω i RE = 0,22 Ω około 1,83 W na każdą połówkę przejmuje rezystor emiterowy, pomijając prądy baz. Zmniejszenie liczby par nie zmniejsza w podobnej proporcji całkowitego ciepła oddawanego do radiatora.
 
-Jedna para oznacza około 5,77 A szczytowo przez aktywny tranzystor przy 100 W / 6 Ω, bez podziału prądu na dwa równoległe elementy. Trzeba osobno zweryfikować jego gorące SOA, wysterowanie MJE15033/MJE15032, warunki chłodzenia i ograniczenie przeciążenia.
+Jedna para oznacza około 5,77 A szczytowo przez aktywny tranzystor przy 100 W / 6 Ω, bez podziału prądu na dwa równoległe elementy. Trzeba osobno zweryfikować jego gorące SOA, wysterowanie 2SA1930/2SC5171, warunki chłodzenia i ograniczenie przeciążenia.
 
 Przy hipotetycznych 150 W/4 Ω i tej samej amplitudzie pobór DC wynosi około 275,7 W, jeszcze bez pozostałych strat. Nie należy obiecywać takiej mocy ciągłej z transformatora 250 VA.
 

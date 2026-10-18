@@ -18,7 +18,7 @@ Nie potwierdzono jeszcze odporności na rzeczywistą kolumnę 4 Ω we wszystkich
 - Amplituda wyjścia 34,641 V, odpowiadająca 100 W na 6 Ω. Przy tej samej amplitudzie rezystor 4 Ω pobrałby 150 W. Osiągnięcie amplitudy wymaga osobnej kontroli zapasu kaskody i zasilacza.
 - Jedna para końcowa, po jednym RE = 0,22 Ω, RB = 4,7 Ω i RBE = 68 Ω na tranzystor; R19/R22 = 1,2 kΩ, R20/R21 = 100 Ω.
 - Przyjęte VBE = 0,65 V, stałe w tym uproszczeniu.
-- Scenariusze β końcowych: 20/40/80, β MJE15032/MJE15033: 25/40/80, β T12/T16 = 70. Są to założenia obliczeniowe, nie gwarantowane minima w całym zakresie temperatury, prądu i napięcia. Karty 2SC2229/2SA949 podają hFE od 70 przy 5 V i 10 mA; nie gwarantują tej wartości wszędzie.
+- Scenariusze β końcowych: 20/40/80, β sterujących T13/T17: 25/40/80, β T12/T16 = 70. T13/T17 są obecnie wybrane jako 2SA1930/2SC5171. Wartości β są założeniami obliczeniowymi, nie potwierdzonymi parametrami tej pary ani gwarantowanymi minimami w całym zakresie temperatury, prądu i napięcia. Karty 2SC2229/2SA949 podają hFE od 70 przy 5 V i 10 mA; nie gwarantują tej wartości wszędzie.
 
 Model uwzględnia prądy baz końcowych i driverów, prądy rezystorów baza–emiter, spadki na rezystorach bazowych i emiterowych oraz prąd R19/R22. Uwzględnia też udział prądów drivera i T12/T16 w prądzie wyjściowym.
 
@@ -59,5 +59,7 @@ Przy wyższych β = 40/40 dla tego samego przesunięcia 60° szczyty spadają do
 - Mocniejsze tranzystory w większych obudowach dają większy zapas cieplny, lecz również wymagają kontroli dynamiki i kompensacji.
 
 Kod odtwarzający obliczenia: [sprawdz_T12_T16.py](sprawdz_T12_T16.py). Wyniki scenariuszy: [T12-T16-wyniki.csv](T12-T16-wyniki.csv).
+
+CSV zawiera też prąd, napięcie i straty aktywnego drivera: [interpretacja T13/T17](T13-T17-ocena.md). Zmiana typów na 2SA1930/2SC5171 nie zmienia wyników modelu przy tych samych założonych β i VBE; nie oznacza to potwierdzenia równoważności fizycznych tranzystorów.
 
 Wykonano 108 scenariuszy. Dodatkowa kontrola odtwarza prądy z napięć na elementach i sprawdza bilans prądów, spadków napięcia oraz mocy aktywnej gałęzi, niezależnie od współczynników użytych do wyznaczenia punktu pracy. Maksymalne reszty numeryczne wyniosły około 6,1 × 10⁻¹⁴ A, 5,8 × 10⁻¹⁵ V i 2,1 × 10⁻¹² W. Jest to sprawdzenie spójności uproszczonego modelu; nie waliduje rzeczywistych charakterystyk tranzystorów, polaryzacji ani stabilności układu.

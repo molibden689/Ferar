@@ -4,6 +4,8 @@ Symmetric constant-VBE approximation, one output device per branch.
 The CSV records the upper branch; lower branch is its sign-reversed analogue.
 Gain values are scenario assumptions, not guaranteed manufacturer minima.
 The target is 100 W / 6 ohm; 4-ohm rows are unapproved comparisons.
+Driver stress columns use the same assumed gains; they do not validate
+the selected 2SA1930/2SC5171 manufacturer's ratings or SOA.
 """
 import csv
 import math
@@ -132,6 +134,17 @@ def main():
                             ic, vce, active)
                         for key, value in residuals.items():
                             max_residuals[key] = max(max_residuals[key], value)
+                        # Reconstruct the PNP driver's positive VEC and IC.
+                        # Its emitter drives the final base through RB;
+                        # its collector is OUTI, not a supply connection.
+                        ve12 = vout + R20 * (1 + 1 / BETA_PRE) * ic
+                        vc12 = ve12 + vce
+                        ib_driver = ic - (rail - vc12) / R19
+                        ic_driver = beta_driver * ib_driver
+                        vec_driver = vc12 + VBE - vout
+                        driver_power = np.where(
+                            active, vec_driver * ic_driver + VBE * ib_driver, 0)
+                        kd = int(np.argmax(driver_power))
                         k = int(np.argmax(power))
                         rows.append({
                             'rail_V': rail,
@@ -148,6 +161,12 @@ def main():
                             'Iout_at_P_peak_A': round(float(iout[k]), 6),
                             'Ic_at_P_peak_mA': round(float(ic[k]) * 1000, 6),
                             'Vce_at_P_peak_V': round(float(vce[k]), 6),
+                            'driver_Ic_peak_active_A': round(float(ic_driver[active].max()), 6),
+                            'driver_Vec_max_active_V': round(float(vec_driver[active].max()), 6),
+                            'driver_P_peak_W': round(float(driver_power[kd]), 6),
+                            'driver_P_mean_active_branch_W': round(float(driver_power.mean()), 6),
+                            'driver_Ic_at_P_peak_A': round(float(ic_driver[kd]), 6),
+                            'driver_Vec_at_P_peak_V': round(float(vec_driver[kd]), 6),
                         })
     path = Path(__file__).resolve().parent / 'T12-T16-wyniki.csv'
     with path.open('w', newline='') as stream:

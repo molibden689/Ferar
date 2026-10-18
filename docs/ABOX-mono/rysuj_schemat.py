@@ -22,9 +22,10 @@ if not original:
   'VP/VM są zewnętrznymi wejściami stabilizowanych ±40 V; nie dodano układu regulatorów. Kolektory T11/T15 korzystają z VP/VM.',
   'Jedna para końcowa, rezystory emiterowe i bazowe; kolektory T13/T17 oraz R20/R21 wracają do OUTI. Oryginał ma odrębne UP/LOW przed kolektorowymi R28/R29.',
   'R12=GND–IB2. R13=VB8–GND; wartość R13 nadal wymaga potwierdzenia. Nie zatwierdzono zamienników D4–D7.',
+  'T13=2SA1930 PNP, T17=2SC5171 NPN zgodnie z wyborem użytkownika; dobór roboczy. Nie zweryfikowano karty producenta, fizycznego pinoutu ani SOA tej pary.',
   'Zgodność grafu połączeń nie oznacza potwierdzenia stabilności, mocy, SOA ani bezpieczeństwa uruchomienia.'
  ]
- types={'T1':'2SC2240','T2':'2SC2240','T3':'KSC1845','T4':'KSA992','T5':'KSA992','T6':'KSA992','T7':'KSA992','T8':'2SA949','T9':'2SC2229','T10':'KSC1845','T11':'2SC2229','T12':'2SC2229','T13':'MJE15033','T15':'2SA949','T16':'2SA949','T17':'MJE15032'}
+ types={'T1':'2SC2240','T2':'2SC2240','T3':'KSC1845','T4':'KSA992','T5':'KSA992','T6':'KSA992','T7':'KSA992','T8':'2SA949','T9':'2SC2229','T10':'KSC1845','T11':'2SC2229','T12':'2SC2229','T13':'2SA1930','T15':'2SA949','T16':'2SA949','T17':'2SC5171'}
  for ref,typ in types.items():expected['components'][ref]['value']=typ
  for ref in ('R15','R16','R23','R24','R28','R29','T14','T18'):del expected['components'][ref]
  expected['components']['T11']['pins']['C']='VP'
@@ -130,6 +131,8 @@ def q(x,y,ref,typ,p):
 
 text(1,78,'Radioelektronik — odtworzenie połączeń rys. 2, ±30 V' if original else 'ABOX — wariant roboczy 100 W / 6 Ω, jedna para końcowa',18,fontweight='bold')
 text(1,75,'KONTROLA POŁĄCZEŃ, NIE DOKUMENTACJA WYKONAWCZA. R13 i dobór diod wymagają wyjaśnienia. Skrzyżowanie bez kropki = brak połączenia.',9)
+if not original:
+ text(1,73.5,'T13/T17: 2SA1930 / 2SC5171 — dobór roboczy; pinout producenta, SOA, chłodzenie i kompensacja do potwierdzenia.',8)
 # Main and filtered rails.
 wire((1,72),(148,72));text(150,72,'+30 V' if original else '+50 V główne',11,va='center');netlabel('V+',(1,72))
 wire((1,4),(148,4));text(150,4,'−30 V' if original else '−50 V główne',11,va='center');netlabel('V-',(1,4))
@@ -205,7 +208,7 @@ if not original:
 else:
  wire((99,43),(127,43));wire((99,37),(127,37));wire((127,40),(147,40));dot(99,43);dot(99,37)
 text(140,41,'OUTI',8);netlabel('OUTI',(140,40))
-q(110,59,'T13','MJE15033','P');q(110,23,'T17','MJE15032','N')
+q(110,59,'T13','2SA1930','P');q(110,23,'T17','2SC5171','N')
 wire((99,54),(99,59),(107.5,59));r((99,72),(99,59),'R19','1k2');dot(99,59);dot(99,72)
 wire((99,26),(99,23),(107.5,23));r((99,23),(99,4),'R22','1k2');dot(99,23);dot(99,4)
 # The reference keeps the separate UP / LOW nodes and collector resistors.
