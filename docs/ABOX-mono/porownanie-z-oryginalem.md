@@ -51,7 +51,7 @@ Wariant modernizowany ma:
 - główne ±50 V i osobne zewnętrzne stabilizowane VP/VM ±40 V;
 - kolektory T11/T15 na VP/VM, resztę stopnia wyjściowego przy głównych szynach;
 - zmienione typy tranzystorów, w tym 2SA949/2SC2229 na T8/T9, T15/T11 i roboczo T16/T12;
-- sterujące T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN), zgodnie z wyborem użytkownika; dostarczona karta NPN potwierdza jego dane i pinout 1=B, 2=C, 3=E; dane PNP oraz dopuszczalna praca pary na gorąco wymagają potwierdzenia;
+- sterujące T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN), zgodnie z wyborem użytkownika; osobne dostarczone karty potwierdzają dane i pinout obu typów 1=B, 2=C, 3=E; dopuszczalna praca pary na gorąco wymaga potwierdzenia;
 - jedną parę końcową: T14 = 2SA1943 (PNP), T18 = 2SC5200 (NPN), zgodnie z późniejszą decyzją użytkownika;
 - po jednym rezystorze emiterowym 0,22 Ω / 5 W (RE1/RE2) i bazowym 4,7 Ω (RBU/RBL) na tranzystor końcowy;
 - brak oryginalnych kolektorowych R28/R29; przez to UP/LOW zostają zastąpione OUTI i do OUTI wracają też R20/R21 oraz kolektory T13/T17;

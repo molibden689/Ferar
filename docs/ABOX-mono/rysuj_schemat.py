@@ -22,7 +22,7 @@ if not original:
   'VP/VM są zewnętrznymi wejściami stabilizowanych ±40 V; nie dodano układu regulatorów. Kolektory T11/T15 korzystają z VP/VM.',
   'Jedna para końcowa, rezystory emiterowe i bazowe; kolektory T13/T17 oraz R20/R21 wracają do OUTI. Oryginał ma odrębne UP/LOW przed kolektorowymi R28/R29.',
   'R12=GND–IB2. R13=VB8–GND; wartość R13 nadal wymaga potwierdzenia. Nie zatwierdzono zamienników D4–D7.',
-  'T13=2SA1930 PNP, T17=2SC5171 NPN zgodnie z wyborem użytkownika. Karta NPN potwierdza T17: 1=B, 2=C, 3=E. Karta PNP oraz dopuszczalna praca pary na gorąco pozostają do potwierdzenia.',
+  'T13=2SA1930 PNP, T17=2SC5171 NPN zgodnie z wyborem użytkownika. Osobne karty obu typów potwierdzają 1=B, 2=C, 3=E. Dopuszczalna praca pary na gorąco pozostaje do potwierdzenia.',
   'Zgodność grafu połączeń nie oznacza potwierdzenia stabilności, mocy, SOA ani bezpieczeństwa uruchomienia.'
  ]
  types={'T1':'2SC2240','T2':'2SC2240','T3':'KSC1845','T4':'KSA992','T5':'KSA992','T6':'KSA992','T7':'KSA992','T8':'2SA949','T9':'2SC2229','T10':'KSC1845','T11':'2SC2229','T12':'2SC2229','T13':'2SA1930','T15':'2SA949','T16':'2SA949','T17':'2SC5171'}
@@ -132,7 +132,7 @@ def q(x,y,ref,typ,p):
 text(1,78,'Radioelektronik — odtworzenie połączeń rys. 2, ±30 V' if original else 'ABOX — wariant roboczy 100 W / 6 Ω, jedna para końcowa',18,fontweight='bold')
 text(1,75,'KONTROLA POŁĄCZEŃ, NIE DOKUMENTACJA WYKONAWCZA. R13 i dobór diod wymagają wyjaśnienia. Skrzyżowanie bez kropki = brak połączenia.',9)
 if not original:
- text(1,73.5,'T17 2SC5171: 1=B, 2=C, 3=E wg karty. T13 2SA1930: karta do sprawdzenia. Gorące SOA, chłodzenie i kompensacja do potwierdzenia.',8)
+ text(1,73.5,'T13 2SA1930 i T17 2SC5171: 1=B, 2=C, 3=E wg osobnych kart. Gorące SOA, chłodzenie i kompensacja do potwierdzenia.',8)
 # Main and filtered rails.
 wire((1,72),(148,72));text(150,72,'+30 V' if original else '+50 V główne',11,va='center');netlabel('V+',(1,72))
 wire((1,4),(148,4));text(150,4,'−30 V' if original else '−50 V główne',11,va='center');netlabel('V-',(1,4))

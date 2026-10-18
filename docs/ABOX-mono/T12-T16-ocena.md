@@ -18,7 +18,7 @@ Nie potwierdzono jeszcze odporności na rzeczywistą kolumnę 4 Ω we wszystkich
 - Amplituda wyjścia 34,641 V, odpowiadająca 100 W na 6 Ω. Przy tej samej amplitudzie rezystor 4 Ω pobrałby 150 W. Osiągnięcie amplitudy wymaga osobnej kontroli zapasu kaskody i zasilacza.
 - Jedna para końcowa, po jednym RE = 0,22 Ω, RB = 4,7 Ω i RBE = 68 Ω na tranzystor; R19/R22 = 1,2 kΩ, R20/R21 = 100 Ω.
 - Przyjęte VBE = 0,65 V, stałe w tym uproszczeniu.
-- Scenariusze β końcowych: 20/40/80, β sterujących T13/T17: 25/40/80, β T12/T16 = 70. T13/T17 są obecnie wybrane jako 2SA1930/2SC5171. Wartości β pozostają założeniami obliczeniowymi, nie gwarantowanymi minimami w całym zakresie temperatury, prądu i napięcia. Dostarczona karta 2SC5171 podaje hFE od 100 przy 5 V / 0,1 A i od 50 przy 5 V / 1 A, TC = 25°C; nie przeniesiono tych gwarancji na cały przebieg ani na PNP. Karty 2SC2229/2SA949 podają hFE od 70 przy 5 V i 10 mA; nie gwarantują tej wartości wszędzie.
+- Scenariusze β końcowych: 20/40/80, β sterujących T13/T17: 25/40/80, β T12/T16 = 70. T13/T17 są obecnie wybrane jako 2SA1930/2SC5171. Wartości β pozostają założeniami obliczeniowymi, nie gwarantowanymi minimami w całym zakresie temperatury, prądu i napięcia. Osobne dostarczone karty PNP i NPN podają hFE od 100 przy |VCE| = 5 V / |IC| = 0,1 A i od 50 przy 5 V / 1 A, TC = 25°C; nie przeniesiono tych gwarancji na cały przebieg. Karty 2SC2229/2SA949 podają hFE od 70 przy 5 V i 10 mA; nie gwarantują tej wartości wszędzie.
 
 Model uwzględnia prądy baz końcowych i driverów, prądy rezystorów baza–emiter, spadki na rezystorach bazowych i emiterowych oraz prąd R19/R22. Uwzględnia też udział prądów drivera i T12/T16 w prądzie wyjściowym.
 
