@@ -29,7 +29,7 @@ Na schemacie VP/VM są osobnymi zaciskami zasilania, nie są połączone z głó
 
 Każdy tranzystor końcowy ma jeden rezystor emiterowy 0,22 Ω / 5 W (RE1/RE2), bazowy 4,7 Ω (RBU/RBL) i baza–emiter 68 Ω (R24/R23). Usunięto drugą parę wraz z jej rezystorami. Obliczenia T12/T16 również dotyczą już jednej pary.
 
-Sterujące wybrane przez użytkownika: **T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN)** zamiast MJE15033/MJE15032. [Obciążenie i stan weryfikacji sterujących](T13-T17-ocena.md). Zachowano istniejące połączenia funkcjonalne B/C/E. Nie potwierdzono fizycznej kolejności wyprowadzeń, parametrów katalogowych ani SOA nowych typów.
+Sterujące wybrane przez użytkownika: **T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN)** zamiast MJE15033/MJE15032. [Obciążenie i stan weryfikacji sterujących](T13-T17-ocena.md). Zachowano istniejące połączenia funkcjonalne B/C/E. Dostarczona karta potwierdza [parametry i pinout 2SC5171](2SC5171-ocena.md): 1=B, 2=C, 3=E. Parametry i pinout PNP wymagają osobnej karty; dopuszczalna praca całej pary na gorąco nie została zatwierdzona.
 
 2SC2240 pozostają parą wejściową. 2SA949/2SC2229 są wpisane jako dobór roboczy na T8/T9, T15/T11 i T16/T12. Nie oznacza to zatwierdzenia dynamicznego SOA i pracy na dowolnej kolumnie 4 Ω.
 

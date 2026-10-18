@@ -12,7 +12,7 @@
 - Para wejściowa T1/T2: dobrane 2SC2240.
 - T8: 2SA949 i T9: 2SC2229, dobrane na podstawie dostarczonych kart Toshiba i wstępnej kontroli DC SOA. [Dane i ocena T8](2SA949-ocena.md), [dane i ocena T9](2SC2229-ocena.md). Nie zatwierdzono automatycznej zamiany wszystkich pozostałych tranzystorów na tę parę.
 - Jedna para końcowa na kanał, zgodnie z decyzją użytkownika: T14 = 2SA1943 (górny PNP), T18 = 2SC5200 (dolny NPN).
-- Sterujące wybrane przez użytkownika: T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN). To dobór roboczy; fizyczny pinout i dopuszczalne warunki pracy wymagają potwierdzenia w karcie producenta. [Ocena obciążenia](T13-T17-ocena.md).
+- Sterujące wybrane przez użytkownika: T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN). Dostarczona karta potwierdza [dane i pinout NPN](2SC5171-ocena.md): 1=B, 2=C, 3=E. Dane PNP i dopuszczalna praca pary na gorąco pozostają do potwierdzenia. [Ocena obciążenia](T13-T17-ocena.md).
 - Po jednym rezystorze emiterowym 0,22 Ω / 5 W (RE1/RE2), bazowym 4,7 Ω (RBU/RBL) i baza–emiter 68 Ω (R24/R23) na tranzystor końcowy. Topologia lokalnego sprzężenia pozostaje taka jak w dotychczasowym wariancie modernizacji.
 
 ## Podział zasilania
