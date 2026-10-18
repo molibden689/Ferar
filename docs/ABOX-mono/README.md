@@ -31,6 +31,8 @@ Każdy tranzystor końcowy ma jeden rezystor emiterowy 0,22 Ω / 5 W (RE1/RE2), 
 
 Sterujące wybrane przez użytkownika: **T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN)** zamiast MJE15033/MJE15032. [Obciążenie i stan weryfikacji sterujących](T13-T17-ocena.md). Zachowano istniejące połączenia funkcjonalne B/C/E. Osobne dostarczone karty potwierdzają parametry oraz pinout [2SA1930](2SA1930-ocena.md) i [2SC5171](2SC5171-ocena.md): oba 1=B, 2=C, 3=E. Dopuszczalna praca całej pary na gorąco nie została zatwierdzona.
 
+[Propozycja zastąpienia D4–D7 mnożnikiem VBE](polaryzacja-VBE.md) zawiera połączenia, wstępny bilans DC i wymagania kompensacji cieplnej. Jest osobną propozycją; główny schemat nadal pokazuje łańcuch diod do czasu dopracowania nowego układu.
+
 2SC2240 pozostają parą wejściową. 2SA949/2SC2229 są wpisane jako dobór roboczy na T8/T9, T15/T11 i T16/T12. Nie oznacza to zatwierdzenia dynamicznego SOA i pracy na dowolnej kolumnie 4 Ω.
 
 ## Wynik kontroli
