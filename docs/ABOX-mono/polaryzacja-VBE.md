@@ -1,26 +1,30 @@
-# Propozycja: tranzystorowy mnożnik VBE zamiast D4–D7
+# Mnożnik VBE w nowym schemacie
 
-Cel: zastąpienie łańcucha D4–D7 i jego regulacji Rc układem o regulowanym napięciu VH–VL i dobranej kompensacji temperaturowej. To propozycja do dalszego opracowania; głównego schematu nie zmieniono jeszcze na układ z poniższymi wartościami przykładowymi.
+Łańcuch D4–D7 i Rc zastąpiono w [nowym schemacie](schemat.png) tranzystorowym mnożnikiem VBE. [Powiększenie układu](mnoznik-VBE.png), [PDF powiększenia](mnoznik-VBE.pdf). To dobór roboczy, wymagający potwierdzenia prądu spoczynkowego i kompensacji cieplnej, nie dokumentacja wykonawcza PCB.
 
 ## Zalecany kierunek
 
-Jeden tranzystor NPN jako mnożnik VBE, roboczo Q19 (np. BD139; konkretny producent i fizyczny pinout pozostają do sprawdzenia). Węzły mnożnika:
+Jeden tranzystor NPN jako mnożnik VBE: Q19 = **2SC5171**, którego kartę użytkownik dostarczył. Zastępuje wcześniejszego kandydata BD139. Karta potwierdza 1=B, 2=C, 3=E, ale nie gwarantuje konkretnego β/VBE przy prądzie kilku mA. Węzły mnożnika:
 
 | Element | Połączenie |
 |---|---|
-| Q19 | C = VH, E = VL, B = VBIAS_B |
-| RCB | VH → VBIAS_B |
-| RBE | VBIAS_B → VL; gałąź z regulacją |
+| Q19 = 2SC5171 | C/2 = VH, E/3 = VL, B/1 = VBIAS_B |
+| R30 = 3,3 kΩ / 1% | VH → VBIAS_B |
+| R31 = 820 Ω / 1% | VBIAS_B → VBIAS_P |
+| P1 = 1 kΩ, wieloobrotowy | 1 = VBIAS_P, 2 = VL, W zwarte z 2/VL |
 
 Mnożnik jest dwójnikiem pomiędzy VH i VL; nie łączy się go z masą. Dotychczasowe bazy T11/T15 pozostają odpowiednio na VH/VL. D1–D3 pełnią inne funkcje i nie są przedmiotem tej zamiany.
 
 W przybliżeniu:
 
 ```text
-V(VH) − V(VL) = VBE19 × (1 + RCB/RBE) + RCB × IB19
+RBE_mnożnika = R31 + ustawiona rezystancja P1
+V(VH) − V(VL) = VBE19 × (1 + R30/RBE_mnożnika) + R30 × IB19
 ```
 
-Regulację korzystnie umieścić w gałęzi baza–emiter, z rezystorem stałym ograniczającym zakres. Zwiększenie jej rezystancji obniża napięcie polaryzacji. Przy użyciu trymera jako reostatu należy połączyć suwak z jednym z końców, aby utrata kontaktu suwaka dawała pełną rezystancję ścieżki. To nie zapewnia odporności na wszystkie możliwe uszkodzenia. Początkowe ustawienie: największa rezystancja tej gałęzi, czyli najmniejsze napięcie polaryzacji. Zakres regulacji trzeba dopiero dobrać do obliczonego prądu spoczynkowego i rozrzutu elementów.
+Regulacja jest w gałęzi baza–emiter, z rezystorem stałym ograniczającym zakres. Zwiększenie jej rezystancji obniża napięcie polaryzacji. Suwak P1 jest zwarty z końcem od strony VL; przy utracie kontaktu suwaka pozostaje pełna rezystancja ścieżki, o ile końce i przewód zwarcia są sprawne. To nie zapewnia odporności na wszystkie możliwe uszkodzenia. **START: P1 = 1 kΩ**, największa rezystancja gałęzi i najmniejsze Vbias. Nie deklaruje to zerowego prądu dla dowolnego rozrzutu i temperatur.
+
+Dla I = 3 mA, VBE19 = 0,65 V i β19 = 100 zakres wynosi **1,915–3,338 V**. Przykładowe 2,85 V odpowiada P1 ≈ 190 Ω. To wynik obliczenia, nie nastawa uruchomieniowa ani zatwierdzony prąd spoczynkowy. W ilustracyjnych skrajnych założeniach prądu, VBE, β i tolerancji napięcie przy maksymalnym P1 może dojść do około 2,46 V; konieczna jest kontrola rzeczywistego prądu.
 
 ## Ile napięcia wymaga nasz układ?
 
@@ -44,7 +48,7 @@ Ilustracja DC, **nie ustalenie docelowego prądu**: przy IC końcowych = 30 mA, 
 
 Przy tym przykładzie RE = 0,22 Ω przewodzi około 40,16 mA, czyli daje około 8,84 mV. Prąd ten obejmuje emiter końcowego i bocznik 68 Ω; nie jest równy IC końcowego.
 
-Dla czujnika o VBE ≈ 0,65 V mnożnik jest rzędu 4,4. Jako przykład oceny można przyjąć RCB = 3,3 kΩ i RBE = 1 kΩ. Przy prądzie całego dwójnika założonym jako 3 mA otrzymujemy około 2,87 V dla β19 = 100 lub 2,83 V dla β19 = 200. Różnica pokazuje, dlaczego trzeba uwzględnić IB19; nie są to zatwierdzone wartości montażowe. Prąd 3 mA również wymaga potwierdzenia w pełnym punkcie pracy VAS.
+Dla czujnika o VBE ≈ 0,65 V mnożnik jest rzędu 4,4. Przy R30 = 3,3 kΩ i efektywnym R31+P1 = 1 kΩ oraz prądzie całego dwójnika założonym jako 3 mA otrzymujemy około 2,87 V dla β19 = 100 lub 2,83 V dla β19 = 200. Różnica pokazuje, dlaczego trzeba uwzględnić IB19. Prąd 3 mA wymaga potwierdzenia w pełnym punkcie pracy VAS.
 
 ## Darlington i kompensacja temperatury
 
@@ -52,6 +56,8 @@ Darlington przede wszystkim zmniejsza wpływ prądu bazy dzięki większemu wzmo
 
 Przy kilku miliamperach prądu dwójnika jeden tranzystor jest rozsądnym punktem wyjścia. Dla mnożnika około 4,4 i przykładowego dVBE/dT ≈ −2 mV/K współczynnik wynosi około −8,8 mV/K. Rzeczywisty wynik zależy od prądu, β, temperatur i rezystorów.
 
-W naszym układzie główne cztery spadki VBE należą do **T11, T12, T15 i T16**. Czujnik powinien śledzić ich temperatury oraz pośredni wpływ pozostałych tranzystorów. Temperatura radiatora końcowych może znacznie różnić się od temperatury tych elementów. Sam montaż Q19 na głównym radiatorze nie dowodzi właściwej kompensacji; może powodować zbyt silny spadek prądu spoczynkowego po rozgrzaniu stopnia mocy.
+W naszym układzie główne cztery spadki VBE należą do **T11, T12, T15 i T16**. Czujnik powinien śledzić ich temperatury oraz pośredni wpływ pozostałych tranzystorów. Temperatura radiatora końcowych może znacznie różnić się od temperatury tych elementów. Sam montaż Q19 na głównym radiatorze nie dowodzi właściwej kompensacji; może powodować zbyt silny spadek prądu spoczynkowego po rozgrzaniu stopnia mocy. Sposób wspólnego sprzężenia cieplnego czujnika z tą czwórką pozostaje do opracowania i pomiaru.
 
-Do zamknięcia tej zmiany potrzebne są: docelowy IC spoczynkowy końcowych, prąd dostępny dla mnożnika, ograniczony zakres regulacji oraz sposób sprzężenia cieplnego. Potem trzeba sprawdzić IQ przy oddzielnym nagrzewaniu płytki, sterujących i końcowych, a także zachowanie dynamiczne i stabilność. Propozycja nie stanowi jeszcze potwierdzenia dobrej kompensacji gotowego wzmacniacza.
+Do zatwierdzenia pozostają: docelowy IC spoczynkowy końcowych, rzeczywisty prąd dostępny dla mnożnika, dopuszczalny zakres regulacji dla wybranych egzemplarzy oraz sposób sprzężenia cieplnego. Trzeba sprawdzić IQ przy oddzielnym nagrzewaniu płytki, sterujących i końcowych, a także zachowanie dynamiczne i stabilność. Nowy rysunek nie stanowi jeszcze potwierdzenia dobrej kompensacji gotowego wzmacniacza.
+
+Obliczenia: [sprawdz_mnoznik_VBE.py](sprawdz_mnoznik_VBE.py), [wyniki JSON](mnoznik-VBE-kontrola.json). [Raport kontroli nowego schematu](kontrola-nowego-schematu.md) opisuje również jawny dobór R13 = 12 kΩ i ograniczenia amplitudy.

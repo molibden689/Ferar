@@ -1,6 +1,6 @@
 # Uzgodniony wariant: 100 W / 6 Ω na kanał
 
-**Po ponownej kontroli oryginału:** poprawiono R12 na GND–IB2 i wycofano obliczenia z jego błędnego połączenia VB8–IB2. R13 i dobór diod wymagają wyjaśnienia. [Raport porównania i aktualne połączenia](porownanie-z-oryginalem.md).
+**Aktualny schemat:** R12 ma poprawną masę; D4–D7/Rc zastąpiono mnożnikiem VBE, a R13 dobrano roboczo na 12 kΩ. [Kontrola nowego schematu](kontrola-nowego-schematu.md), [porównanie z oryginałem](porownanie-z-oryginalem.md). Moc 100 W pozostaje celem.
 
 ## Założenia
 
@@ -14,6 +14,8 @@
 - Jedna para końcowa na kanał, zgodnie z decyzją użytkownika: T14 = 2SA1943 (górny PNP), T18 = 2SC5200 (dolny NPN).
 - Sterujące wybrane przez użytkownika: T13 = 2SA1930 (PNP), T17 = 2SC5171 (NPN). Osobne dostarczone karty potwierdzają dane oraz pinout [PNP](2SA1930-ocena.md) i [NPN](2SC5171-ocena.md): oba 1=B, 2=C, 3=E. Dopuszczalna praca pary na gorąco pozostaje do potwierdzenia. [Ocena obciążenia](T13-T17-ocena.md).
 - Po jednym rezystorze emiterowym 0,22 Ω / 5 W (RE1/RE2), bazowym 4,7 Ω (RBU/RBL) i baza–emiter 68 Ω (R24/R23) na tranzystor końcowy. Topologia lokalnego sprzężenia pozostaje taka jak w dotychczasowym wariancie modernizacji.
+- Mnożnik: Q19 = 2SC5171, R30 = 3,3 kΩ / 1%, R31 = 820 Ω / 1%, P1 = 1 kΩ wieloobrotowy ze zwartym suwakiem do VL. START P1 = 1 kΩ. Zakres napięcia i sprzężenie cieplne są doborem roboczym do potwierdzenia prądu spoczynkowego.
+- R13 = 12 kΩ / 1% / co najmniej 0,25 W, nowy dobór dla zapasu kaskody. Oryginalny nieczytelny zapis pozostaje opisany osobno.
 
 ## Podział zasilania
 
@@ -52,8 +54,10 @@ W tym porównawczym scenariuszu jedna para miałaby idealizowane straty około 6
 
 Stabilizowane ±40 V są punktem wyjścia. Kaskoda, wtórniki i rezystory R20/R21 zabierają część zakresu napięciowego. Wymagane 34,64 V amplitudy trzeba potwierdzić dla temperatury, rozrzutu VBE/hFE i obu polaryzacji sygnału. Również główne szyny muszą utrzymać wymagany zapas pod obciążeniem.
 
+Kontrola wykazała, że stare R13 = 8,2 kΩ ograniczało dodatnią amplitudę przy założeniu β końcowego = 20 i drivera = 25. Zmieniono R13 na 12 kΩ; w tym scenariuszu przy celu 100 W pozostaje około 0,713 V VEC8. Dla umownego zapasu 1 V wychodzi około 98,4 W w uproszczonym modelu. To ilustracja ograniczenia, nie pomiar mocy ani katalogowa granica zniekształceń. [Pełne założenia i wyniki](kontrola-nowego-schematu.md).
+
 Jeżeli doliny tętnień głównego zasilania spadną poniżej napięcia wymaganego przez regulator, stabilizacja zostanie utracona. Ustawienie ±40 V wymaga sprawdzenia przy obciążeniu i niskim napięciu sieci.
 
 ## Aktualny stan
 
-To zapis celu projektu i obliczeń wstępnych. Schemat PDF/PNG/SVG pokazuje już osobne wejścia VP/VM oraz roboczy dobór tranzystorów. Sam układ stabilizatorów pozostaje do opracowania. Nie wykonano symulacji z modelami producentów ani pomiarów. Układ polaryzacji, niepewna wartość R13, kompensacja, limiter SOA, ochrona głośnika przed DC i ochrona termiczna pozostają do opracowania.
+To zapis celu projektu i obliczeń wstępnych. Schemat PDF/PNG/SVG pokazuje osobne wejścia VP/VM, mnożnik VBE i jawny dobór R13. Sam układ stabilizatorów pozostaje do opracowania. Nie wykonano symulacji z modelami producentów ani pomiarów. Docelowy prąd spoczynkowy, sprzężenie cieplne, pełny punkt pracy, kompensacja, limiter SOA, ochrona głośnika przed DC i ochrona termiczna pozostają do weryfikacji lub opracowania.

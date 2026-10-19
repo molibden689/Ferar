@@ -1,6 +1,6 @@
 # T12 / T16 — ocena 2SC2229 / 2SA949
 
-**Zakres po ponownej kontroli oryginału:** model dotyczy zmodyfikowanego stopnia z rezystorami emiterowymi końcowych i sprzężeniem do OUTI, a nie oryginalnego stopnia z kolektorowymi R28/R29. Nie potwierdza on polaryzacji kaskody; wykryty błąd R12 oraz niepewność R13 opisano w [raporcie porównania](porownanie-z-oryginalem.md).
+**Zakres po ponownej kontroli oryginału:** model dotyczy zmodyfikowanego stopnia z rezystorami emiterowymi końcowych i sprzężeniem do OUTI, a nie oryginalnego stopnia z kolektorowymi R28/R29. Nie potwierdza on polaryzacji kaskody; korektę R12 i źródłową niepewność R13 opisano w [raporcie porównania](porownanie-z-oryginalem.md). Aktualny mnożnik VBE i nowy R13 = 12 kΩ mają osobną [kontrolę](kontrola-nowego-schematu.md). Poniższy model aktywnej gałęzi nie wyznacza ustawienia prądu jałowego nowego mnożnika.
 
 **Aktualizacja do jednej pary końcowej:** wszystkie poniższe wyniki oraz CSV przeliczono dla jednego T14 = 2SA1943 i jednego T18 = 2SC5200. Wiersze 4 Ω są porównawcze i nie zatwierdzają pracy wzmacniacza na takim obciążeniu.
 

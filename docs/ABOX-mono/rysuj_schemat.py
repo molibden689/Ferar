@@ -21,13 +21,20 @@ if not original:
   'To modernizacja, nie kopia oryginału. Jawne zmiany opisano w porownanie-z-oryginalem.md.',
   'VP/VM są zewnętrznymi wejściami stabilizowanych ±40 V; nie dodano układu regulatorów. Kolektory T11/T15 korzystają z VP/VM.',
   'Jedna para końcowa, rezystory emiterowe i bazowe; kolektory T13/T17 oraz R20/R21 wracają do OUTI. Oryginał ma odrębne UP/LOW przed kolektorowymi R28/R29.',
-  'R12=GND–IB2. R13=VB8–GND; wartość R13 nadal wymaga potwierdzenia. Nie zatwierdzono zamienników D4–D7.',
+  'R12=GND–IB2. R13=12 kΩ to nowy dobór roboczy dla ±40 V, nie rozstrzygnięcie nieczytelnej wartości oryginału.',
+  'D4–D7 i Rc zastąpiono mnożnikiem: Q19 NPN C=VH, E=VL; R30=3,3 kΩ C–B; R31=820 Ω i P1=1 kΩ szeregowo B–E. Suwak P1 zwarty z końcem od VL; START P1=1 kΩ.',
   'T13=2SA1930 PNP, T17=2SC5171 NPN zgodnie z wyborem użytkownika. Osobne karty obu typów potwierdzają 1=B, 2=C, 3=E. Dopuszczalna praca pary na gorąco pozostaje do potwierdzenia.',
   'Zgodność grafu połączeń nie oznacza potwierdzenia stabilności, mocy, SOA ani bezpieczeństwa uruchomienia.'
  ]
  types={'T1':'2SC2240','T2':'2SC2240','T3':'KSC1845','T4':'KSA992','T5':'KSA992','T6':'KSA992','T7':'KSA992','T8':'2SA949','T9':'2SC2229','T10':'KSC1845','T11':'2SC2229','T12':'2SC2229','T13':'2SA1930','T15':'2SA949','T16':'2SA949','T17':'2SC5171'}
  for ref,typ in types.items():expected['components'][ref]['value']=typ
- for ref in ('R15','R16','R23','R24','R28','R29','T14','T18'):del expected['components'][ref]
+ for ref in ('R15','R16','R23','R24','R28','R29','T14','T18','D4','D5','D6','D7','Rc'):del expected['components'][ref]
+ expected['components'].update({
+  'Q19':{'kind':'Q','value':'2SC5171','pins':{'B':'VBIAS_B','C':'VH','E':'VL'}},
+  'R30':{'kind':'R','value':'3,3 kΩ / 1%','pins':{'1':'VH','2':'VBIAS_B'}},
+  'R31':{'kind':'R','value':'820 Ω / 1%','pins':{'1':'VBIAS_B','2':'VBIAS_P'}},
+  'P1':{'kind':'POT','value':'1 kΩ wieloobrotowy; START 1 kΩ','pins':{'1':'VBIAS_P','2':'VL','W':'VL'}}
+ })
  expected['components']['T11']['pins']['C']='VP'
  expected['components']['T15']['pins']['C']='VM'
  for ref in ('T13','T17'):expected['components'][ref]['pins']['C']='OUTI'
@@ -41,7 +48,13 @@ if not original:
   expected['components']['R24' if upper else 'R23']={'kind':'R','value':'68 Ω','pins':{'1':emit if upper else base,'2':base if upper else emit}}
  expected['components']['R7']['value']='20,5 kΩ, wstępnie'
  expected['components']['R12']['value']='20,5 kΩ, wstępnie'
- expected['components']['R13']['value']='8,2 kΩ? — wartość do potwierdzenia'
+ expected['components']['R13']['value']='12 kΩ / 1% / 0,25 W — dobór roboczy dla ±40 V'
+ for ref in ('C3','C4','C10','C11'):expected['components'][ref]['value']='470 µF / 100 V'
+ for ref in ('C7','C8'):expected['components'][ref]['value']=('47' if ref=='C7' else '10')+' µF / 25 V'
+ expected['components']['C6']['value']='39 pF C0G / 100 V — kompensacja do sprawdzenia'
+ expected['components']['C9']['value']='220 nF / 250 V'
+ for ref in ('R25','R26'):expected['components'][ref]['value']='2,49 Ω / 2 W'
+ expected['components']['R27']['value']='0,62 Ω / 5 W'
 prefix='oryginal' if original else 'schemat'
 geometry={'segments':[],'junctions':[],'components':{},'labels':[]}
 record_wires=True
@@ -53,7 +66,7 @@ def value(ref,fallback):
  if original:
   overrides={'R13':'82k / 8k2 ?','T6':'BC157','T14':'TIP2955 / 2N6491','T18':'TIP3055 / 2N6488','R25':'2R49 / 0,5 W','R26':'2R49 / 0,5 W','R27':'0R62 / 2 W','C5':'47 µF / 16 V'}
   return overrides.get(ref,reference['components'][ref]['value'].split(';')[0])
- overrides={'R7':'20k5 *','R12':'20k5 *','R13':'8k2 ? *'}
+ overrides={'R7':'20k5 *','R12':'20k5 *','R13':'12k / 1% *','Q19':'2SC5171 *'}
  return overrides.get(ref,fallback)
 fig,ax=plt.subplots(figsize=(32,16))
 ax.set_xlim(-1,165);ax.set_ylim(-7,81);ax.axis('off')
@@ -71,7 +84,7 @@ def ground(x,y):
  for i,w in enumerate([1,.65,.3]):wire((x-w,y-.8-.35*i),(x+w,y-.8-.35*i))
 def r(a,b,ref,val):
  val=value(ref,val)
- register(ref,'POT' if ref in ('Rc','Rd') else 'R',{'1':a,'2':b},val)
+ register(ref,'POT' if ref in ('Rc','Rd','P1') else 'R',{'1':a,'2':b},val)
  x1,y1=a;x2,y2=b;mx=(x1+x2)/2;my=(y1+y2)/2
  if y1==y2:
   wire(a,(mx-1.4,my));wire((mx+1.4,my),b)
@@ -129,10 +142,10 @@ def q(x,y,ref,typ,p):
  text(tx,ty,ref+'\n'+typ,8,fontweight='bold',va='center')
  record_wires=True
 
-text(1,78,'Radioelektronik — odtworzenie połączeń rys. 2, ±30 V' if original else 'ABOX — wariant roboczy 100 W / 6 Ω, jedna para końcowa',18,fontweight='bold')
-text(1,75,'KONTROLA POŁĄCZEŃ, NIE DOKUMENTACJA WYKONAWCZA. R13 i dobór diod wymagają wyjaśnienia. Skrzyżowanie bez kropki = brak połączenia.',9)
+text(1,78,'Radioelektronik — odtworzenie połączeń rys. 2, ±30 V' if original else 'ABOX — cel 100 W / 6 Ω, jedna para końcowa, mnożnik VBE',18,fontweight='bold')
+text(1,75,'KONTROLA POŁĄCZEŃ, NIE DOKUMENTACJA WYKONAWCZA. '+('R13 i dobór diod wymagają wyjaśnienia. ' if original else 'Wartości * robocze; zapas napięcia i kompensacja wymagają weryfikacji. ')+'Skrzyżowanie bez kropki = brak połączenia.',9)
 if not original:
- text(1,73.5,'T13 2SA1930 i T17 2SC5171: 1=B, 2=C, 3=E wg osobnych kart. Gorące SOA, chłodzenie i kompensacja do potwierdzenia.',8)
+ text(1,73.5,'T13 2SA1930, T17 i Q19 2SC5171: 1=B, 2=C, 3=E wg kart. Gorące SOA, chłodzenie i kompensacja do potwierdzenia.',8)
 # Main and filtered rails.
 wire((1,72),(148,72));text(150,72,'+30 V' if original else '+50 V główne',11,va='center');netlabel('V+',(1,72))
 wire((1,4),(148,4));text(150,4,'−30 V' if original else '−50 V główne',11,va='center');netlabel('V-',(1,4))
@@ -171,10 +184,10 @@ netlabel('FB',(34,19));netlabel('OUTI',(42,19))
 q(55,57,'T7','KSA992','P');q(55,49,'T8','2SA949','P')
 wire((29,43),(41,43),(41,59),(51,59),(51,57),(52.5,57));dot(29,43)
 diode((56,68),(56,60),'D3');dot(56,68)
-wire((56,54),(56,52));wire((56,46),(64,46));text(64.3,46,'VH',8,va='center')
-c((41,43),(56,43),'C6','39 pF *');wire((56,43),(56,46));dot(41,43);dot(56,46)
+wire((56,54),(56,52));wire((56,46),(64,46));text(64.3,46 if original else 47,'VH',8,va='center')
+c((41,43),(56,43),'C6','39 pF C0G / 100 V *');wire((56,43),(56,46));dot(41,43);dot(56,46)
 r((47,68),(47,46),'R14','820 Ω');wire((47,46),(47,49),(52.5,49));dot(47,68);dot(47,49)
-r((44,40),(44,31),'R13','8k2 ? *');wire((44,40),(44,49),(47,49));ground(44,31)
+r((44,40),(44,31),'R13','12k / 1% *');wire((44,40),(44,49),(47,49));ground(44,31)
 c((41,68),(41,61),'C7','47 µF / 25 V');wire((41,61),(44,61),(44,49));dot(41,68);dot(44,49)
 r((47,37),(47,22),'R12','20k5 *');wire((47,37),(50,37));ground(50,37)
 q(70,22,'T9','2SC2229','N');q(64,14,'T10','KSC1845','N')
@@ -182,14 +195,30 @@ wire((47,22),(67.5,22));wire((65,17),(65,22));dot(65,22)
 wire((71,19),(71,18),(60,18),(60,14),(61.5,14));dot(71,19)
 r((71,19),(71,8),'R11','220 Ω');wire((65,11),(65,8));dot(65,8);dot(71,8)
 c((47,22),(47,8),'C8','10 µF / 25 V');dot(47,22);dot(47,8)
-# Original adjustable four-diode bias, explicitly not validated.
-wire((64,46),(64,43));diode((64,43),(64,39),'D7 *');diode((64,39),(64,35),'D6 *')
-diode((64,35),(64,31),'D5 *');diode((64,31),(64,27),'D4 *')
-wire((64,27),(71,27),(71,25));text(71.5,27,'VL',8)
-wire((64,35),(75,35));r((75,35),(75,27),'Rc','1 kΩ *');wire((75,27),(71,27));dot(64,35);dot(71,27)
-geometry['components']['Rc']['pins']['W']=(78,29)
-ax.add_patch(FancyArrowPatch((78,29),(75.55,31),arrowstyle='->',mutation_scale=9,color=col))
-wire((78,29),(78,27),(75,27));dot(75,27)
+if original:
+ # Preserve the original diode chain in the historical reference only.
+ wire((64,46),(64,43));diode((64,43),(64,39),'D7 *');diode((64,39),(64,35),'D6 *')
+ diode((64,35),(64,31),'D5 *');diode((64,31),(64,27),'D4 *')
+ wire((64,27),(71,27),(71,25))
+ wire((64,35),(75,35));r((75,35),(75,27),'Rc','1 kΩ *');wire((75,27),(71,27));dot(64,35);dot(71,27)
+ geometry['components']['Rc']['pins']['W']=(78,29)
+ ax.add_patch(FancyArrowPatch((78,29),(75.55,31),arrowstyle='->',mutation_scale=9,color=col))
+ wire((78,29),(78,27),(75,27));dot(75,27)
+else:
+ # Floating NPN VBE multiplier. The only external nodes are VH and VL.
+ q(69,38,'Q19','2SC5171','N')
+ wire((70,41),(70,46));dot(70,46)
+ wire((70,35),(70,27),(71,27),(71,25));dot(70,27)
+ r((60,46),(60,38),'R30','3k3 / 1% *');dot(60,46)
+ r((60,38),(60,32),'R31','820 Ω / 1% *')
+ wire((60,38),(66.5,38));dot(60,38)
+ r((60,32),(60,27),'P1','1k *')
+ wire((60,27),(70,27));dot(60,27)
+ geometry['components']['P1']['pins']['W']=(57,29)
+ ax.add_patch(FancyArrowPatch((57,29),(59.5,29.5),arrowstyle='->',mutation_scale=9,color=col))
+ wire((57,29),(57,27),(60,27))
+ text(73,32,'START\nP1 = 1 kΩ',6.5,ha='left',va='center')
+text(71.5,27,'VL',8)
 # Buffers.
 q(85,50,'T11','KSC3503','N');q(85,30,'T15','KSA1381','P')
 wire((64,46),(78,46),(78,50),(82.5,50));dot(64,46)
@@ -262,8 +291,13 @@ text(159,36,'głośnik\n8 Ω' if original else 'głośnik\n6 Ω — cel',9);grou
 for x,ref,top,bottom in [(11,'C3','VP','GND'),(48,'C4','GND','VM'),(84,'C10','V+','GND'),(121,'C11','GND','V−')]:
  c((x,-1),(x+9,-1),ref,'470 µF / 100 V');text(x-.5,-1,top,8,ha='right',va='center');text(x+9.5,-1,bottom,8,va='center')
  netlabel(top.replace('−','-'),(x,-1));netlabel(bottom.replace('−','-'),(x+9,-1))
-text(1,-5,'R13: skan 82k / 8k2 — wartość niezatwierdzona. D1–D3: BAYP95; D6/D7: BAP811 wg skanu; D4/D5: typ do ustalenia. Nie zastępować automatycznie przez 1N4148.',8)
+text(1,-5,'R13: skan 82k / 8k2 — wartość niezatwierdzona. D1–D3: BAYP95; D6/D7: BAP811 wg skanu; D4/D5: typ do ustalenia. Nie zastępować automatycznie przez 1N4148.' if original else 'Q19: sprzężenie cieplne z T11/T12/T15/T16 do opracowania. R30/R31/P1 i R13: dobór roboczy. START P1 = 1 kΩ. D1–D3: BAYP95 wg oryginału.',8)
+if not original:text(1,-6.5,'Rezystory bez osobnego oznaczenia mocy: co najmniej 0,25 W. Napięcia zasilania stabilizowane muszą być utrzymane pod obciążeniem. * = wartość robocza.',8)
 for ext in ['svg','pdf','png']:fig.savefig(root/f'{prefix}.{ext}',dpi=160,bbox_inches='tight')
+if not original:
+ from matplotlib.transforms import Bbox
+ detail_bbox=Bbox.from_extents(56.8,25.5,79.5,48).transformed(ax.transData).transformed(fig.dpi_scale_trans.inverted())
+ for ext in ('png','pdf'):fig.savefig(root/f'mnoznik-VBE.{ext}',dpi=240,bbox_inches=detail_bbox)
 svg_path=root/f'{prefix}.svg'
 svg_path.write_text('\n'.join(line.rstrip() for line in svg_path.read_text().splitlines())+'\n')
 (root/f'{prefix}-geometria.json').write_text(json.dumps(geometry,ensure_ascii=False,indent=2)+'\n')

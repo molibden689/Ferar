@@ -40,7 +40,7 @@ Powiększony skan odczytano jako niejednoznaczny zapis 82 kΩ / 8,2 kΩ. Nie uzn
 
 Z R14 = 820 Ω wartość 82 kΩ ustawiłaby bazę T8 przy około 0,990 × VP, pomijając mały prąd bazy. Przy VP = 30 V daje to około 29,7 V, czyli wymagany emiter T8 około 30,35 V, podczas gdy emiter T7 jest około 29,35 V. Taki punkt nie zapewnia właściwej pracy kaskody PNP. Wartość 8,2 kΩ dawałaby bazę około 27,27 V i jest elektrycznie wiarygodna, ale sama zgodność obliczeń nie dowodzi odczytu oryginalnej wartości.
 
-W odtworzeniu pokazano obie możliwości z pytajnikiem. W modernizacji 8,2 kΩ pozostaje wartością wstępną do potwierdzenia.
+W odtworzeniu pokazano obie możliwości z pytajnikiem. W najnowszej modernizacji przyjęto **R13 = 12 kΩ** jako jawny dobór projektowy dla ±40 V, po kontroli zapasu napięcia. Nie jest to potwierdzenie wartości oryginalnej. [Obliczenia i ograniczenia](kontrola-nowego-schematu.md).
 
 ## Jawne zmiany modernizacji
 
@@ -56,6 +56,8 @@ Wariant modernizowany ma:
 - po jednym rezystorze emiterowym 0,22 Ω / 5 W (RE1/RE2) i bazowym 4,7 Ω (RBU/RBL) na tranzystor końcowy;
 - brak oryginalnych kolektorowych R28/R29; przez to UP/LOW zostają zastąpione OUTI i do OUTI wracają też R20/R21 oraz kolektory T13/T17;
 - osobne rezystory baza–emiter 68 Ω dla końcowych;
+- mnożnik VBE Q19 = 2SC5171 zamiast D4–D7/Rc: R30 = 3,3 kΩ C–B, R31 = 820 Ω i P1 = 1 kΩ szeregowo B–E, suwak P1 zwarty z końcem od VL;
+- nowy roboczy R13 = 12 kΩ / 1% / co najmniej 0,25 W;
 - wstępne R7/R12 = 20,5 kΩ przy ±40 V, zamiast oryginalnych 15 kΩ przy ±30 V;
 - podniesione napięcia znamionowe kondensatorów przy szynach.
 
@@ -65,10 +67,10 @@ Wcześniejszy wariant modernizacji miał dwie pary końcowe. Aktualny usuwa doda
 
 ## Kontrola i granice wniosku
 
-Oryginał: 68 elementów, 156 pinów, 48 sieci. Modernizacja z jedną parą: 68 elementów, 156 pinów, 50 sieci.
+Oryginał: 68 elementów, 156 pinów, 48 sieci. Modernizacja z jedną parą i mnożnikiem VBE: 67 elementów, 155 pinów, 49 sieci.
 
 Rysownik eksportuje odcinki przewodów, punkty połączeń i końcówki elementów. Niezależny skrypt porównuje ich graf z listą odczytaną ze skanu oraz z jawnymi zmianami modernizacji. Kontrola obejmuje brakujące piny/elementy, przerwy, zwarcia różnych sieci oraz niepodłączone etykiety.
 
-To dowód zgodności wyeksportowanych połączeń z listą, a nie symulacja układu. Nie potwierdza wartości R13, doboru zamienników diod, polaryzacji, stabilności, mocy 100 W, SOA na kolumnach 4 Ω ani działania zabezpieczeń.
+To kontrola zgodności wyeksportowanych połączeń z listą, a nie symulacja układu. Nie potwierdza oryginalnego odczytu R13, pełnego punktu pracy, stabilności, mocy 100 W, SOA na kolumnach 4 Ω ani działania zabezpieczeń. Nowe obliczenia mnożnika i zapasu kaskody są w [raporcie nowego schematu](kontrola-nowego-schematu.md).
 
-Poprzednie obliczenia oparte na R12 pomiędzy VB8 i IB2 są wycofane. W szczególności R12 nie jest obciążony napięciem pomiędzy szynami. Przy około −40 V i wstępnym R12 = 20,5 kΩ jego spadek to około 38,7 V, prąd około 1,89 mA i moc około 0,073 W — nie około 0,35 W. Polaryzację kaskody trzeba przeliczyć z poprawną masą i po ustaleniu R13.
+Poprzednie obliczenia oparte na R12 pomiędzy VB8 i IB2 są wycofane. W szczególności R12 nie jest obciążony napięciem pomiędzy szynami. Przy około −40 V i wstępnym R12 = 20,5 kΩ jego spadek to około 38,7 V, prąd około 1,89 mA i moc około 0,073 W — nie około 0,35 W. Nowy dobór R13 i kontrolę nominalnych napięć kaskody opisano w osobnym raporcie; pełnego punktu pracy z modelami producentów nie zweryfikowano.
